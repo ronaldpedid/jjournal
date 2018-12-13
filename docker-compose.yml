@@ -1,0 +1,57 @@
+version: "2"
+
+services: 
+  server: 
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    command: "npm run server"
+    ports:
+      - "4000:4000"
+    environment: 
+      - MONGO_CS=mongodb://mongo:27017/jjournal
+    volumes:
+      - ./server:/home/server
+      - server_node_modules:/home/server/node_modules
+    depends_on:
+      - mongo
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    command: "npm run start"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./client:/home/client
+      - client_node_modules:/home/client/node_modules
+  assets:
+    build:
+      context: .
+      dockerfile: ./services/nginx/Dockerfile
+    volumes:
+      - ./assets:/www/assets
+  haproxy:
+    build:
+      context: ./services/haproxy
+      dockerfile: Dockerfile
+    depends_on: 
+      - server
+      - client
+      - assets
+    ports: 
+      - "80:80"
+    networks:
+      default:
+        aliases:
+          - "dev.jitsujournal.com"
+          - "assets.jitsujournal.com"
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+volumes: 
+  server_node_modules:
+  client_node_modules:
+  

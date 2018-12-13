@@ -1,0 +1,20 @@
+.uploaderShowcase{
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  
+  & img{
+    margin-top: 1rem;
+  }
+  
+}
+
+.uploaderShowcaseUploaded{
+  height: 40rem;
+  width: 40rem;
+}
+
+.uploaderBtn{
+  background-color: red;
+  width: 40%;
+}

@@ -1,0 +1,81 @@
+@import '../../style-guide.scss';
+
+.loaderContainer{
+  display: flex;
+  border: 1rem solid;
+  border-radius: 50%;
+  padding: 2rem;
+  height: 5rem;
+  width: 5rem;
+  margin: 0 auto;
+  animation: loader infinite 5s linear;
+  animation-delay: .5s;
+  
+}
+
+.loaderCopy{
+  animation: loaderCopy infinite 5s linear;
+  font-weight: 700;
+  align-self: center;
+  color: $loaderRed;
+  font-size: 1.4rem;
+}
+
+@keyframes loader {
+  from {
+    border:1rem solid $loaderRed;
+  }
+  20%{
+    border:1rem solid $loaderYellow;
+  }
+  40% {
+    border:1rem solid $loaderGreen;
+    
+  }
+  60% {
+    border:1rem solid $loaderBlue;
+   
+  }
+  80% {
+    border:1rem solid $loaderPurple;
+    
+  }
+  100%{
+    border:1rem solid $loaderRed;
+  
+  }
+  to {
+    border:1rem solid $loaderRed;
+   
+  }
+}
+
+@keyframes loaderCopy {
+  from {
+    color:$loaderRed;
+  }
+  20%{
+    color:$loaderYellow;
+  }
+  40% {
+    color:$loaderGreen;
+    
+  }
+  60% {
+    color:$loaderBlue;
+   
+  }
+  80% {
+    color:$loaderPurple;
+    
+  }
+  100%{
+    color:$loaderRed;
+  
+  }
+  to {
+    color:$loaderRed;
+   
+  }
+}
+

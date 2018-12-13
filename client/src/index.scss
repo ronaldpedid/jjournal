@@ -1,0 +1,84 @@
+@import './components/buttons/buttons.scss';
+@import './components/loaders/loaders.scss';
+@import './components/arrows/arrows.scss';
+@import './components/forms/forms.scss';
+@import './components/parallax/parallax.scss';
+@import './components/carousel/carousel.scss';
+@import './components/pricing/pricing.scss';
+@import './components/modal/modal.scss';
+@import './components/showcase/showcase.scss';
+@import './components/uploads/uploads.scss';
+@import './components/headers/headers.scss';
+@import './components/navigation/navigation.scss';
+
+
+
+//views
+@import './views/home/home.scss';
+
+@import './style-guide.scss';
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-family: 'K2D', sans-serif;
+  
+}
+
+#root {
+  width: 100vw;
+  background: lightblue;
+  overflow: hidden;
+}
+
+#modal-root {
+  position: relative;
+  z-index: 999;
+}
+
+
+.buttons, 
+.arrows,
+.loaders,
+.forms,
+.pricing,
+.parallax,
+.carousel,
+.upload,
+.modal,
+.showcase{
+  margin: 2rem 0;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column
+}
+
+.arrows{
+  margin: 2rem 0 0 0;
+}
+
+.pricing{
+  background-color: green;
+}
+
+.hidden{
+  display: none;
+}
+
+.shown{
+  display: flex;
+}
+
+.bgDimmer{
+  z-index: 98;
+   background: rgba($color: #000000, $alpha: .6)
+}
+
+
+
+

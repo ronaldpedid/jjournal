@@ -1,0 +1,71 @@
+/* */
+@import '../../style-guide.scss';
+@import '../buttons/buttons.scss';
+
+.formFlex{
+  display: flex;
+}
+
+.formContainer{
+  @extend .formFlex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formInputGroup{
+  @extend .formFlex;
+  flex-direction: column;
+  width: 40rem;
+  justify-content: center;
+  align-self: center;
+}
+
+.input {
+  padding: 1rem;
+}
+
+.label{
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin: .5rem 0 .3rem 0;
+  text-align: left;
+  border-bottom: 2px solid $comDarkGray;
+}
+.inputText,
+.inputNumber,
+.inputEmail{
+  @extend .input;
+  border: none;
+  background-color: $comDarkGray;
+  color: $comWhite;
+}
+
+
+.inputText,
+.inputNumber,
+.inputEmail
+.messageBox{
+  border-radius: .345rem;
+}
+
+
+.formInputMessagebox{
+
+}
+
+.messageBox{
+  margin: 2rem 0;
+  height: 10rem;
+  width: 40rem;
+  font-size: 1.4rem;
+  
+}
+
+.submitBtn{
+  @extend .buttonSuccess;
+  width: 25%;
+}
+
+.error{
+  color: red;
+}

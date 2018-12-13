@@ -1,0 +1,7 @@
+@import '../../flex.scss';
+
+.loginContainer{
+  @extend .flex;
+  @extend .absCenter;
+  height: 91.5vh;
+}

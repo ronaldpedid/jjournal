@@ -1,0 +1,71 @@
+@import '../../style-guide.scss';
+
+.buttonText{
+  color: $btnWhite;
+  align-self: center;
+}
+
+.buttonWidth{
+  width: 10%;
+}
+
+.buttonPrimary{
+  display: flex;
+  border: none;
+  height: 2rem;
+  width: auto;
+  border-radius: .5rem;
+  justify-content: center;
+  cursor: pointer;
+  background-color: $btnRegular;
+  text-align: center;
+}
+
+.buttonSuccess,
+.buttonDanger,
+.buttonWarning{
+  @extend .buttonPrimary;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+}
+
+
+.buttonSuccess{
+background-color: $btnSuccess;
+width: 25%;
+font-size: 1rem;
+align-self: center;
+justify-content: center;
+padding: .5rem 1rem;
+color: $comWhite;
+font-weight: 700;
+text-transform: uppercase;
+margin: 1rem 0;
+text-align: center;
+}
+
+.buttonDanger{
+  text-transform: uppercase;
+  background-color: $btnDanger;
+  width: 25%;
+  font-size: 1rem;
+  align-self: center;
+  padding: .5rem 1rem;
+  color: $comWhite;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 1rem 0;
+}
+
+.buttonWarning{
+  background-color: $btnWarning;
+  width: 25%;
+  font-size: 1rem;
+  align-self: center;
+  padding: .5rem 1rem;
+  color: $comWhite;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 1rem 0;
+}

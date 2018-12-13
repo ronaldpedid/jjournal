@@ -1,0 +1,45 @@
+//flex-items
+.flex{
+  display: flex;
+}
+
+.flexBasis100{
+  flex-basis: 100%;
+}
+
+.row{
+  @extend .flex;
+  flex-flow: row wrap;
+}
+
+.rowNoWrap{
+  @extend .flex;
+  @extend .row;
+  flex-wrap: nowrap;
+}
+
+.col{
+  @extend .flex;
+  @extend .flexBasis100;
+  flex-direction: column;
+}
+
+.colSmall{
+  @extend .col;
+  width: 33.33%;
+}
+
+.colMed{
+  @extend .colSmall;
+  width: 66.66%;
+}
+
+.colLrg{
+  @extend .colMed;
+  width: 99.99%;
+}
+
+.absCenter{
+  justify-content: center;
+  align-items: center;
+}

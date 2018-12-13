@@ -1,0 +1,158 @@
+@import '../../style-guide.scss';
+
+.arrowContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $comNavy;
+  height: 15rem;
+  justify-content: center;
+}
+
+.arrow{
+	width: 0;
+	height: 0;
+	border-left: 1.75rem solid transparent;
+	border-right: 1.75rem solid transparent;
+	border-top: 1.75rem solid $siteBlue;
+  align-self: center;
+  box-shadow: inset .2rem .2rem .2rem solid $comDarkGray;
+}
+
+.arrowMid{
+  border-left: 1.25rem solid transparent;
+	border-right: 1.25rem solid transparent;
+	border-top: 1.25rem solid $siteBlue;
+}
+
+.arrowBot{
+  border-left: .75rem solid transparent;
+	border-right: .75rem solid transparent;
+	border-top: .75rem solid $siteBlue;
+}
+.arrowTop, .arrowMid, .arrowBot{
+  @extend .arrow;
+  
+  &:not(last-child){
+     margin-bottom: 0.5rem;
+  }
+}
+
+.arrowThin{
+  background-color:teal;
+  border:1px solid darken(teal, 10%);
+	border-radius: 50%;
+	width: 80px;
+	height: 80px; 
+  position:relative;
+  
+  &:after, &:before {
+    content:'';
+    width:0;
+    height:0;
+    border-style:solid;
+    border-color:transparent;
+    border-left-width: 30px;
+	  border-right-width: 30px;
+    border-top-width:25px;
+    position:absolute;
+    left:10px
+  }
+  &:before {
+	  border-top-color: darken(teal, 25%);
+    top:30px;
+  }
+  &:after {
+	  border-top-color: teal;
+    top:29px;
+  }
+  &:hover {
+    background:darken(teal, 5%);
+    border-color:darken(teal, 15%);
+    &:before {
+      border-top-color: darken(teal, 35%);
+    }
+    &:after {
+	    border-top-color: darken(teal, 5%);
+    }
+  }
+}
+
+.arrowMoveToTop{
+  @extend .arrowContainer;
+  position: absolute;
+  top: 90%;
+  left: 90%;
+  z-index: 3;
+}
+.arrowTop {
+  animation: glow1 2s ease-in reverse infinite;
+  animation-delay: .1s
+}
+
+.arrowMid {
+  animation: glow2 2s reverse infinite; 
+  animation-delay: .35s;
+}
+.arrowBot {
+  animation: glow3 2s reverse infinite;
+  animation-delay: .57s;
+}
+
+.fadeOut{
+  animation: fadeOut 2s reverse;
+  animation-delay: .57s;
+}
+
+
+
+
+
+//key frames
+@keyframes glow1 {
+  from {
+    opacity: 0.1
+  }
+  0.16% {
+    opacity: 0.4;
+  }
+  33%{
+    opacity: 1
+  }
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes glow2 {
+  from {
+    opacity: 1
+  }
+  0.33% {
+    opacity: 0.1;
+  }
+  0.50% {
+    opacity: 0.4;
+  }
+  66%{
+    opacity: 1
+  }
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes glow3 {
+  from {
+    opacity: 1
+  }
+  0.66% {
+    opacity: 0.1;
+  }
+  0.83% {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1
+  }
+}

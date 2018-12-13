@@ -1,0 +1,40 @@
+//flexbox
+@import '../../flex.scss';
+
+.navigationContainer{
+  @extend .flex;
+  z-index: 1;
+  width: 100%;
+}
+
+.navigationRow{
+  @extend .row;
+  width: 100%;
+  background-color: teal;
+  list-style-type: none;
+  padding: .7rem;
+}
+
+.navigationItem{
+  padding: 1rem;
+} 
+
+.navigationContainerSubnav{
+  @extend .navigationContainer;
+}
+
+.navigationRowSubnav{
+  @extend .navigationRow;
+  background-color: rebeccapurple;
+  color: white;
+  & :link{
+    color: right;
+  }
+
+}
+
+.navigationItemSubnav{
+  @extend .navigationItem;
+  
+  font-size: 2rem;
+} 

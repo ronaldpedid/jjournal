@@ -1,0 +1,11 @@
+@import '../../flex.scss';
+
+.dashboardContainer{
+
+}
+.dashboardContentContainer,
+.journalEntryWrapper{
+  @extend .flex;
+  @extend .absCenter;
+  height: 91.5vh;
+}

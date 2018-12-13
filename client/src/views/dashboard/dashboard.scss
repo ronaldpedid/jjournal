@@ -1,0 +1,8 @@
+@import '../../flex.scss';
+
+.dashboardContentContainer
+{
+  @extend .flex;
+  @extend .absCenter;
+  height: 91.5vh;
+}

@@ -1,0 +1,117 @@
+@import '../../style-guide.scss';
+@import '../buttons/buttons.scss';
+
+.pricingContainer{
+  display: flex;
+  height: 80rem;
+  width: 100%;
+  border: 2px solid black;
+  background-color: gray;
+  margin: 0 auto;
+  color: white;
+ 
+}
+
+
+.pricingPanel{
+  &.trueback, &.truefront{
+  transform: rotateY(180deg);
+}
+}
+
+.pricingPanelRow{
+  display: flex;
+  height: inherit;
+  width: 100%;
+  justify-content: center;
+  background-color: white;
+  padding: 3rem 0;
+  perspective: 1000;
+}
+
+.pricingPanelLeft,
+.pricingPanelCenter,
+.pricingPanelRight{
+  @extend .pricingPanel;
+
+}
+
+.pricingPanelCenter{
+  margin: 0 5rem;
+}
+
+.pricingPanel{
+  height: 35rem;
+  width: 20rem;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+.truefront, .trueback{
+  @extend .pricingPanel;
+  border: 1px solid black;
+  box-shadow: .6rem .6rem 3rem #444;
+  color: #fff;
+}
+
+.pricingPanel{
+  perspective: 1000;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  justify-content: center;
+  position: relative;
+ 
+}
+
+.bgFront{
+  background-image: url('http://assets.jitsujournal.com/assets/backgrounds/samples/cloud.jpg');
+}
+
+.truefront {
+  @extend .bgFront;
+	z-index: 2;
+  transform: rotateY(180deg);
+  transition: .4s;
+  transform-style: preserve-3d;
+  background-size: cover;
+}
+
+.bgBack{
+  background-image: url('http://assets.jitsujournal.com/assets/backgrounds/samples/ff15.jpg');
+}
+
+.trueback {
+  @extend .bgBack;
+  transform: rotateY(0deg);
+  transition: .6s;
+  transform-style: preserve-3d;
+  background-size: cover; 
+}
+
+.pricingBtn{
+  @extend .buttonPrimary;
+  width: 50%;
+  font-size: 1rem;
+  align-self: center;
+  padding: 0 1rem;
+  color: $comWhite;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 1rem 0;
+}
+
+.pricingContent{
+  transform: rotateY(-180deg);
+}
+
+.pricingContent,
+.pricingContentBack{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+

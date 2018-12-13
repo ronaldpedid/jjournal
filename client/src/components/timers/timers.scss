@@ -1,0 +1,10 @@
+@import '../../flex.scss';
+
+.timer{
+  font-size: 3rem;
+}
+
+.timeClockContainer{
+  @extend .colLrg;
+  @extend .absCenter;
+}

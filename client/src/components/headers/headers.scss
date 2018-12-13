@@ -1,0 +1,21 @@
+@import '../../flex.scss';
+
+.headerContainer{
+  @extend .flex;
+  @extend .colLrg;
+  height: 25rem;
+  border: 1px solid black;
+}
+
+.headerBodyContainer{
+  @extend .headerContainer;
+  @extend .absCenter;
+  height: 100%;
+  border: none;
+  
+}
+
+.headerLogoContainer{
+@extend .headerBodyContainer;
+
+}

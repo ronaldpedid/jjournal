@@ -1,0 +1,35 @@
+
+/*common colors*/
+$comDarkGray: #333333;
+$comLightGray: #777777;
+$comNavy: #000080;
+$comWhite: #ffffff;
+
+/* multiuse colors */
+$siteYellow: #daa520;
+$siteBlue: #3434a1;
+$sitePurple: #663399;
+$siteGreen: #1d6d1d;
+$siteRed: #a00f0f;
+
+
+/* button colors */
+
+$btnWhite: $comWhite;
+$btnRegular: $siteBlue;
+$btnSuccess: $siteGreen;
+$btnDanger: $siteRed;
+$btnWarning: $siteYellow;
+
+/* loader colors */
+
+$loaderGreen: $siteGreen;
+$loaderBlue: $siteBlue;
+$loaderRed: $siteRed;
+$loaderPurple: $sitePurple;
+$loaderYellow: $siteYellow;
+
+
+.hidden{
+  display: none;
+}

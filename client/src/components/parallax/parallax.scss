@@ -1,0 +1,25 @@
+.parallaxContainer{
+  display: flex;
+  height: 70rem;
+  width: 100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+.parallaxInner{
+  @extend .parallaxContainer;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+
+.parallaxBackgroundDuke{
+  @extend .parallaxInner;
+  background-image: url('http://assets.jitsujournal.com/assets/backgrounds/samples/duke.jpg');
+}
+

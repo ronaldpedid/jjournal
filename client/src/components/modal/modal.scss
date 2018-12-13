@@ -1,0 +1,60 @@
+@import '../../style-guide.scss';
+
+.modal{
+  position: relative;
+
+}
+
+.modalContainer{
+  display: fixed;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ 
+}
+
+.modalActive{
+  display: flex;
+  background-color: $comDarkGray;
+  height: 50vh;
+  width: 75vw;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, .65);
+  position: fixed;
+  box-shadow: 1rem 1rem 3rem #666666;
+  z-index: 99;
+}
+
+.modalSleeping{
+  display: none;
+}
+
+.modalClose{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: auto;
+  color: #fff;
+  background: #777777;
+  border: none;
+  padding: .3rem;
+  margin: .5vw;
+  border-radius: 50%;
+}
+
+.modalInner{
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.bgDimmer{
+  background-color: #666666;
+}

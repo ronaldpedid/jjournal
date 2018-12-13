@@ -1,0 +1,9 @@
+create user model - BE --C
+create journal model - BE -- C
+create entry model - BE -- C
+link all models together using refs- BE -- C
+create login system - BE --C
+create user profile pages - FE --I
+
+
+C = Completed feature I = Imcomplete feature BE = Backend FE = Frontend
