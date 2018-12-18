@@ -21,7 +21,6 @@ module.exports = passport.use(new LocalStrategy({
         return done(null, false, { message: 'Incorrect username or password' });
       }
       user.comparePassword(password, function (err, isMatch) {
-        console.log(user);
         if (err) {
           return done(err);
         } else if (isMatch) {

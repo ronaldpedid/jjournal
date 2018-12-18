@@ -164,7 +164,6 @@ export class EntryForm extends Component {
     } = this.props
     return (
       <div className={styles.journalEntryCreateWrapper}>
-        <SiteNavigation />
         <CreateEntryForm
           rolls={rolls}
           rollTime={rollTime}

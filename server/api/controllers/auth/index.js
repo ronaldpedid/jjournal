@@ -17,8 +17,9 @@ const util = require('../../lib/utils.js'),
 module.exports = {
   signUp: signUp,
   signIn: signIn,
-  getCurrentUser: getCurrentUser
-
+  getCurrentUser: getCurrentUser,
+  logoutCurrentUser: logoutCurrentUser,
+  editUser: editUser
 };
 
 /**
@@ -28,8 +29,13 @@ module.exports = {
  */
 async function getCurrentUser(req, res) {
   const user = req.user;
-  console.log(user);
   return res.json({ user });
+}
+
+
+function logoutCurrentUser(req, res) {
+  req.logOut();
+  res.redirect('/');
 }
 
 //STEPS
@@ -64,10 +70,8 @@ async function signUp(req, res) {
 };
 
 
-
 function signIn(req, res) {
   let user = req.user;
-  console.log(user);
   if (!user) {
     res.redirect('/');
     console.log('User cannot be found. Please check user information.');
@@ -77,3 +81,15 @@ function signIn(req, res) {
   })
 }
 
+async function editUser(req, res) {
+  const id = req.user._id;
+  console.log(id)
+  try {
+    const user = await User.findByIdAndUpdate(id, req.body, { upsert: true })
+      .then(user => user.save(user))
+  }
+  catch (err) {
+    console.log(err);
+    res.status(302).json({ success: false });
+  }
+};

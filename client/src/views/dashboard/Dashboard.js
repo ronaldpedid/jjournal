@@ -7,7 +7,6 @@ export class DashboardView extends Component {
   render() {
     return (
       <div className={styles.dashboardContainer}>
-        <SiteNavigation />
         <div className={styles.dashboardContentContainer}>
           <SubNavigation />
         </div>

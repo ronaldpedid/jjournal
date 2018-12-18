@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
-import styles from '../signup/signup.scss';
+import styles from '../user/profile.scss';
+import { observer, inject } from 'mobx-react';
 import formStyles from '../../components/forms/forms.scss';
-import { SiteNavigation } from '../../components/navigation/Navigation';
 import { Input, Label } from '../../components/forms/FormComponents';
 import axios from '../../../node_modules/axios';
 
-
-export class SignupForm extends Component {
+@observer
+class EditUserForm extends Component {
+  get viewModel() {
+    return this.props.viewModel;
+  }
   render() {
     const {
       email,
-      password,
       username,
-      emailErr,
-      passwordErr,
-      usernameErr,
+      firstName,
+      lastName,
+      profilePic,
       handleChange,
       handleSubmit
     } = this.props;
@@ -26,29 +28,44 @@ export class SignupForm extends Component {
             <div className={formStyles.formInputGroup}>
               <Label className={formStyles.label}>Username</Label>
               <Input
-                className={usernameErr ? formStyles.error : formStyles.inputText}
+                className={formStyles.inputText}
                 type="text"
                 name="username"
                 onChange={handleChange}
+                placeholder={this.viewModel.username}
                 value={username} />
             </div>
             <div className={formStyles.formInputGroup}>
               <Label className={formStyles.label}>Email Address</Label>
               <Input
-                className={emailErr ? formStyles.error : formStyles.inputText}
+                className={formStyles.inputText}
                 type="text"
                 name="email"
+                placeholder={this.viewModel.email}
                 onChange={handleChange}
                 value={email} />
             </div>
             <div className={formStyles.formInputGroup}>
-              <Label className={formStyles.label}>Password</Label>
-              <Input className={passwordErr ? formStyles.error : formStyles.inputText}
-                type="password"
+              <Label className={formStyles.label}>First Name</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="firstName"
+                placeholder={this.viewModel.firstName}
                 onChange={handleChange}
-                name="password"
-                value={password} />
+                value={firstName} />
             </div>
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Last Name</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="lastName"
+                placeholder={this.viewModel.lastName}
+                onChange={handleChange}
+                value={lastName} />
+            </div>
+
             <button type="submit">Submit</button>
           </form>
         </div>
@@ -57,18 +74,19 @@ export class SignupForm extends Component {
   }
 }
 
-export class Signup extends Component {
+@inject('userProfile')
+@observer
+export class EditUser extends Component {
   constructor(props) {
     super(props);
+    this.viewModel = this.props.userProfile;
     this.state = {
       username: '',
       email: '',
-      password: '',
-      usernameErr: false,
-      emailErr: false,
-      passwordErr: false
-    }
+      firstName: '',
+      lastName: ''
 
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -78,21 +96,18 @@ export class Signup extends Component {
   }
 
   validateForm() {
-    const { username, email, password } = this.state;
-    const usernameErr = username.length === 0;
-    const emailErr = email.length === 0;
-    const passwordErr = password.length === 0 || password.length < 6;
-
-    this.setState({ usernameErr, emailErr, passwordErr })
-    return !(usernameErr || emailErr || passwordErr);
+    return true
   }
 
   async submitForm() {
-    const { username, email, password } = this.state;
-    const form = await axios.post('/api/account/signup', {
+    const userId = this.viewModel.userId;
+    console.log('userid: ' + userId);
+    const { username, email, firstName, lastName } = this.state;
+    const form = await axios.put('/api/account/' + userId, {
       username,
       email,
-      password
+      firstName,
+      lastName
     }).catch((error) => {
       const response = error.response
       console.log(response.data.errors)
@@ -100,37 +115,36 @@ export class Signup extends Component {
   }
 
   showErrorMessage() {
-    return null;
+    return console.log('Something went wrong.');
   }
 
   async handleSubmit(e) {
     e.preventDefault();
-    if (this.validateForm()) {
-      await this.submitForm();
-      window.location = "/"
-    }
+    await this.submitForm();
+    // window.location = "/account"
+
   }
   render() {
     const {
       email,
-      password,
       username,
-      emailErr,
-      passwordErr,
-      usernameErr,
+      firstName,
+      lastName
     } = this.props
     return (
       <div className={styles.signupPageWrapper}>
-        <SignupForm
+
+        <EditUserForm
           username={username}
           email={email}
-          password={password}
+          firstName={firstName}
+          lastName={lastName}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
-          usernameErr={usernameErr}
-          emailErr={emailErr}
-          passwordErr={passwordErr}
+          viewModel={this.viewModel}
         />
+
+
       </div>
 
     );

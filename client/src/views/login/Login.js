@@ -10,9 +10,6 @@ export class Login extends Component {
   render() {
     return (
       <div className={styles.loginWrapper}>
-        <div className={styles.navigationWrapper}>
-          <SiteNavigation />
-        </div>
         <div className={styles.loginContainer}>
           <form action="/api/account/login" method="post">
             <div className={formStyles.formInputGroup}>

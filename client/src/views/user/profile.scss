@@ -1,0 +1,22 @@
+@import '../../flex.scss';
+
+.userInformationContainer{
+  @extend .colLrg;
+  @extend .absCenter;
+  height: 91.5vh;
+  li{
+    list-style-type: none;
+    margin-bottom: 1rem; 
+  }
+}
+
+.descBold{
+  font-weight: 700;
+  text-transform: uppercase
+}
+
+.profilePicture{
+  height: 250px;
+  width: 250px;
+  margin: 1rem;
+}

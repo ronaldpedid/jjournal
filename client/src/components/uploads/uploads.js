@@ -3,12 +3,11 @@ import styles from './uploads.scss';
 import formStyles from '../forms/forms.scss';
 import { Input } from '../forms/Input';
 import { SuccessButton } from '../buttons/Buttons';
-
+import axios from 'axios';
 
 export class Uploader extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       imageUrl: '',
     }

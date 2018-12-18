@@ -2,17 +2,16 @@ import { observable, computed, action, runInAction } from 'mobx';
 import axios from 'axios';
 
 export class NavigationViewModel {
-  @observable currentUser = null;
-  @observable loading = false;
+  constructor(userProfile) {
+    this.userProfile = userProfile;
 
-  @action async loadUser() {
-    this.loading = true;
-    const user = await axios.get('/api/current_user')
-    runInAction(() => {
-      this.currentUser = user;
-      this.loading = false;
-    })
   }
+
+  @computed get currentUser() {
+    return this.userProfile.currentUser;
+  }
+
+
 
   @computed get username() {
     return this.currentUser
@@ -32,8 +31,63 @@ export class NavigationViewModel {
 
   @computed get loginHref() {
     return this.isLoggedIn
-      ? '/api/logout'
+      ? '/api/account/logout'
       : '/account/login';
   }
 
+  @computed get userNameText() {
+    return this.isLoggedIn
+      ? this.username + '!'
+      : '';
+  }
+
+  @computed get userNameHref() {
+    return this.isLoggedIn
+      ? '/account/'
+      : '';
+  }
+
+  @computed get dashboardText() {
+    return this.isLoggedIn
+      ? 'Dashboard'
+      : '';
+  }
+
+  @computed get welcomeText() {
+    return this.isLoggedIn
+      ? 'Welcome, '
+      : '';
+  }
+
+  @computed get HomeText() {
+    return this.isLoggedIn
+      ? 'Home'
+      : '';
+  }
+
+
+  @computed get homeHref() {
+    return this.isLoggedIn
+      ? '/'
+      : '';
+  }
+
+  @computed get dashboardHref() {
+    return this.isLoggedIn
+      ? '/account/dashboard'
+      : '';
+  }
+
+
+  @computed get signUp() {
+    return this.isLoggedIn
+      ? ''
+      : 'Sign Up';
+  }
+
+  @computed get signUpHref() {
+    return this.isLoggedIn
+      ? ''
+      : '/account/signup';
+  }
 }

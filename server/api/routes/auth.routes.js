@@ -18,10 +18,11 @@ module.exports = function (app) {
   //GET
   app.get('/api/account/signin', util.asJSON, auth.signIn);
   app.get('/api/current_user', util.asJSON, requireLogin, auth.getCurrentUser);
-  app.get('/api/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-  });
+  app.get('/api/account/logout', auth.logoutCurrentUser);
+
+
+  //PUT
+  app.put('/api/account/:id', util.asJSON, requireLogin, auth.editUser)
 
   //POST
   app.post('/api/account/signup', util.asJSON, auth.signUp);

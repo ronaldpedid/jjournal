@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './navigation.scss';
 import { NavigationViewModel } from './navigation.viewModel';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 
 class NavigationContainer extends Component {
@@ -34,26 +34,32 @@ class NavigationListItem extends Component {
     )
   }
 }
-
+@inject('userProfile')
 @observer
 export class SiteNavigation extends Component {
   constructor(props) {
     super(props);
-    this.viewModel = new NavigationViewModel()
+    this.viewModel = new NavigationViewModel(props.userProfile);
   }
-
-  async componentDidMount() {
-    await this.viewModel.loadUser();
-  }
-
   render() {
     return (
       <NavigationContainer className={styles.navigationContainer}>
         <NavigationList className={styles.navigationRow}>
-          <NavigationListItem className={styles.navigationItem}><Link to='/'>Home</Link></NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}><Link to='/account/dashboard'>Dashboard</Link></NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}><Link to='/account/signup'>Sign Up</Link></NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}><Link to={this.viewModel.loginHref}>{this.viewModel.loginText}</Link></NavigationListItem>
+          <NavigationListItem className={styles.navigationItem}>
+            {this.viewModel.welcomeText}<Link to={this.viewModel.userNameHref}> {this.viewModel.userNameText}</Link>
+          </NavigationListItem>
+          <NavigationListItem className={styles.navigationItem}>
+            <Link to={this.viewModel.homeHref}>{this.viewModel.HomeText}</Link>
+          </NavigationListItem>
+          <NavigationListItem className={styles.navigationItem}>
+            <Link to={this.viewModel.dashboardHref}>{this.viewModel.dashboardText}</Link>
+          </NavigationListItem>
+          <NavigationListItem className={styles.navigationItem}>
+            <Link to={this.viewModel.loginHref}>{this.viewModel.loginText}</Link>
+          </NavigationListItem>
+          <NavigationListItem className={styles.navigationItem}>
+            <Link to={this.viewModel.signUpHref}>{this.viewModel.signUp}</Link>
+          </NavigationListItem>
         </NavigationList>
       </NavigationContainer>
     )
