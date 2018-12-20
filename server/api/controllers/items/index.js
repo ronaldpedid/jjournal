@@ -1,5 +1,5 @@
 const util = require('../../lib/utils.js');
-const Item = require('../../lib/database/models/Item');
+const Item = require('../../lib/database/datamodels/Item');
 //validate = require('../../lib/validators.js'),
 
 module.exports = {

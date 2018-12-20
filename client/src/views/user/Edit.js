@@ -4,6 +4,7 @@ import { observer, inject } from 'mobx-react';
 import formStyles from '../../components/forms/forms.scss';
 import { Input, Label } from '../../components/forms/FormComponents';
 import axios from '../../../node_modules/axios';
+import { withRouter } from 'react-router-dom';
 
 @observer
 class EditUserForm extends Component {
@@ -74,8 +75,11 @@ class EditUserForm extends Component {
   }
 }
 
-@inject('userProfile')
-@observer
+
+@withRouter //wraps in withRouter - this.props.history.push('/') will redirect the view after ajax requests
+@inject('userProfile') //injects user profile data
+@observer //observes class for changes
+//set the user profile from the props - this.viewModel = this.props.anyVariable
 export class EditUser extends Component {
   constructor(props) {
     super(props);
@@ -121,8 +125,8 @@ export class EditUser extends Component {
   async handleSubmit(e) {
     e.preventDefault();
     await this.submitForm();
-    // window.location = "/account"
-
+    await this.viewModel.loadUser();
+    this.props.history.push('/account');
   }
   render() {
     const {

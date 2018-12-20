@@ -10,7 +10,7 @@
   border: 1px solid black;
   height: auto;
   margin-top: .9rem;
-  margin: .9rem;
+  margin: .9rem auto;
   border-radius: .4rem;
 }
 
@@ -60,4 +60,12 @@
   @extend .styledButton;
   color: black;
   background-color: gray;
+}
+
+.codeBlock{
+  background-color: lightgray;
+}
+
+.headerOne{
+  color: red;
 }

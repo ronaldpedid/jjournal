@@ -35,13 +35,9 @@ const EntrySchema = new Schema({
     default: "Today I ..."
 
   },
-  techniqueBook: {
-    type: Schema.Types.ObjectId,
-    ref: 'Technique'
-  },
   author: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'User'
   },
   date: {
     type: Date,
@@ -49,4 +45,4 @@ const EntrySchema = new Schema({
   }
 });
 
-module.exports = Entry = mongoose.model('Entry', EntrySchema);
+module.exports = exports.default = Entry = mongoose.model('Entry', EntrySchema);

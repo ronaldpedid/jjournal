@@ -7,8 +7,8 @@
  */
 const util = require('../../lib/utils.js'),
   //validate = require('../../lib/validators.js'),
-  User = require('../../lib/database/models/User'),
-  crypt = require('../../lib/safe');
+  User = require('../../lib/models/user');
+
 
 
 /**
@@ -45,23 +45,16 @@ function logoutCurrentUser(req, res) {
 //save the new user
 async function signUp(req, res) {
   try {
+    //creates new copy of user model
+    const userModel = new User();
 
-    //take password and hash it with bcrypt
-    let password = await crypt.generatePasswordHash(req.body.password);
+    //call create method adding in password, username, email
+    //returns a promise, resolve to new user
+    //after user is save the journal is getting created
 
-    //UPD
-    const newUser = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: password
-    });
+    const newUser = await userModel.create(req.body);
+    return res.json(newUser)
 
-    //Save new user to the data base and return the user object
-    newUser
-      .save()
-      .then((user) => {
-        res.json(user)
-      })
   } catch (err) {
     res.status(500);
     console.log(err);
@@ -85,8 +78,9 @@ async function editUser(req, res) {
   const id = req.user._id;
   console.log(id)
   try {
-    const user = await User.findByIdAndUpdate(id, req.body, { upsert: true })
-      .then(user => user.save(user))
+    const userModel = new User();
+    const updatedUser = await userModel.edit(id, req.body);
+    return res.json(updatedUser);
   }
   catch (err) {
     console.log(err);

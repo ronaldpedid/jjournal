@@ -1,7 +1,7 @@
 const util = require('../../lib/utils.js');
-const Book = require('../../lib/database/models/techniques/Book');
-const Technique = require('../../lib/database/models/techniques/Technique');
-const User = require('../../lib/database/models/User');
+const Book = require('../../lib/database/datamodels/techniques/Book');
+const Technique = require('../../lib/database/datamodels/techniques/Technique');
+const User = require('../../lib/database/datamodels/User');
 //validate = require('../../lib/validators.js'),
 
 module.exports = {

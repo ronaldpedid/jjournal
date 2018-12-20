@@ -1,8 +1,6 @@
-const util = require('../../lib/utils.js');
-const Entry = require('../../lib/database/models/journal/Entry');
-const Journal = require('../../lib/database/models/journal/Journal');
-const User = require('../../lib/database/models/User');
-//validate = require('../../lib/validators.js'),
+const util = require('../../lib/utils.js'),
+  Entry = require('../../lib/models/entry');
+
 
 module.exports = {
   createEntry: createEntry,
@@ -10,20 +8,10 @@ module.exports = {
   retrieveEntry: retrieveEntry,
   retrieveJournal: retrieveJournal,
   deleteEntry: deleteEntry,
-  updateEntry: updateEntry,
-  createJournal: createJournal
+  updateEntry: updateEntry
 }
 
-async function createJournal(req, res) {
-  return new Promise((resolve, reject) => {
-    const newJournal = new Journal({
-      title: req.body.title
-    });
 
-    console.log(newJournal)
-    newJournal.save().then(journal => res.json(journal));
-  })
-}
 
 //get a single item from the db
 async function retrieveJournal(req, res) {
@@ -36,18 +24,16 @@ async function retrieveJournal(req, res) {
 
 //create a post request to add a new item to the db
 async function createEntry(req, res) {
-  return new Promise((resolve, reject) => {
-    const newEntry = new Entry({
-      rolls: req.body.rolls,
-      rollTime: req.body.rollTime,
-      reflections: req.body.reflections,
-      weightPre: req.body.weightPre,
-      weightPost: req.body.weightPost
-    });
+  try {
+    const entryModel = new Entry();
 
-    console.log(newEntry)
-    newEntry.save().then(entry => res.json(entry));
-  })
+    const newEntry = await entryModel.create(req.body);
+    return res.json(newEntry);
+  } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.json({ error: true })
+  }
 }
 
 

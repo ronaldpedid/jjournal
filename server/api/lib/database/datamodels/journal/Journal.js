@@ -25,4 +25,4 @@ const JournalSchema = new Schema({
   }
 });
 
-module.exports = Journal = mongoose.model('Journal', JournalSchema);
+module.exports = exports.default = Journal = mongoose.model('Journal', JournalSchema);

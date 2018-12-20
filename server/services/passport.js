@@ -1,4 +1,4 @@
-const User = require('../api/lib/database/models/User');
+const User = require('../api/lib/database/datamodels/User');
 const crypt = require('../api/lib/safe')
 const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
@@ -35,12 +35,10 @@ module.exports = passport.use(new LocalStrategy({
 
 
 passport.serializeUser(function (user, done) {
-  console.log('serialize', user.id);
   return done(null, user.id)
 });
 
 passport.deserializeUser(function (id, done) {
-  console.log('deserialize', id);
   User.findById(id, function (err, user) {
     if (err) {
       console.log('error in deserialize', err);

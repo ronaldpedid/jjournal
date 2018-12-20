@@ -21,6 +21,7 @@ export default class DraftTextEditor extends Component {
     this.handleKeyCommand = this._handleKeyCommand.bind(this);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyles(style);
+    this.onTab = this._onTab.bind(this);
     this.setEditor = (editor) => {
       this.editor = editor;
     };
@@ -70,8 +71,8 @@ export default class DraftTextEditor extends Component {
     let className = 'editor'
     var contentState = editorState.getCurrentContent();
     if(!contentState.hasText()) {
-      if(contentState.getBlockMap().first.getType !== 'unstyled'){
-        className += 'hidePlaceholder'
+      if(contentState.getBlockMap().first.getType !== styles.unstyled){
+        className = styles.hidePlaceholder
       }
     }
     return (
@@ -112,7 +113,7 @@ const styleMap = {
 
 function getBlockStyle(block) {
   switch (block.getType()) {
-    case 'blockqoute': return styles.blockquote;
+    case 'Blockquote' : return styles.blockquote;
     default: return null;
   }
 }
@@ -141,10 +142,8 @@ const BLOCK_TYPES = [
   { label: 'H4', style: 'header-four' },
   { label: 'H5', style: 'header-five' },
   { label: 'H6', style: 'header-six' },
-  { label: 'Blockquote', style: 'blockquote' },
   { label: 'UL', style: 'unordered-list-item' },
-  { label: 'OL', style: 'ordered-list-item' },
-  { label: 'Code Block', style: 'code-block' }
+  { label: 'OL', style: 'ordered-list-item' }
 ]
 
 const BlockStyleControls = (props) => {

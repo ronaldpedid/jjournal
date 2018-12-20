@@ -11,9 +11,6 @@ const journal = require('../controllers/journal/');
 module.exports = function (app) {
   app.options('/api/journal/*', util.asJSON, util.options);
 
-  //create a new journal
-  app.post('/api/journal/new', util.asJSON, journal.createJournal);
-
   //create a new journal entry
   app.post('/api/journal/entry/new', util.asJSON, journal.createEntry);
 

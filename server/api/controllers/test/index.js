@@ -1,5 +1,5 @@
 const utils = require('../../lib/utils');
-const User = require('../../lib/database/models/User');
+const User = require('../../lib/database/datamodels/User');
 
 module.exports = {
   returnData: returnData,

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../login/login.scss';
 import formStyles from '../../components/forms/forms.scss';
-import { SiteNavigation } from '../../components/navigation/Navigation';
 import { Input, Label } from '../../components/forms/FormComponents';
 import { SuccessButton } from '../../components/buttons/Buttons';
 
