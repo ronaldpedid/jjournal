@@ -1,5 +1,6 @@
 const UserDM = require('../database/datamodels/User'),
   UserJournal = require('./userJournal'),
+  UserTechBook = require('./userTechBook'),
   crypt = require('../safe');
 
 class User {
@@ -18,6 +19,7 @@ class User {
     await newUser.save()
 
     await this.createJournal(newUser._id);
+    await this.createBook(newUser._id);
 
     return newUser;
   }
@@ -27,10 +29,31 @@ class User {
     await newUserJournalModel.create(userId);
   }
 
+  async createBook(userId) {
+    const newUserTechBookModel = new UserTechBook();
+    await newUserTechBookModel.create(userId);
+  }
+
   async edit(userId, data) {
     const user = await UserDM.findOneAndUpdate({ _id: userId }, data)
     return user;
   }
+
+  async incEntryAmount(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $inc: { numOfEntries: amount } });
+    return user;
+  }
+
+  async getUser(userId) {
+    const user = await UserDM.findOne({ _id: userId });
+    console.log(user);
+    return user;
+  }
+
+  async delete(userId) {
+    return await UserDM.findByIdAndDelete({ _id: userId });
+  }
+
 }
 
 module.exports = exports.default = User;

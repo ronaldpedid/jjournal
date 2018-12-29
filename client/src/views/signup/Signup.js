@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styles from '../signup/signup.scss';
 import formStyles from '../../components/forms/forms.scss';
-import { SiteNavigation } from '../../components/navigation/Navigation';
 import { Input, Label } from '../../components/forms/FormComponents';
 import axios from '../../../node_modules/axios';
+import { withRouter } from 'react-router-dom';
 
 
 export class SignupForm extends Component {
@@ -57,6 +57,7 @@ export class SignupForm extends Component {
   }
 }
 
+@withRouter
 export class Signup extends Component {
   constructor(props) {
     super(props);
@@ -107,7 +108,7 @@ export class Signup extends Component {
     e.preventDefault();
     if (this.validateForm()) {
       await this.submitForm();
-      window.location = "/"
+      this.props.history.push('/');
     }
   }
   render() {

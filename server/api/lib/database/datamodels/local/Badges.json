@@ -1,0 +1,61 @@
+[
+  {
+    "badgeId": 0
+  },
+  {
+    "badgeId": 1,
+    "badgeName": "Welcome Badge",
+    "worth": 5,
+    "unlockedBy": "Signing up a new account.",
+    "unlocked": true,
+    "image": "/assets/logos/jjlogo.png"
+  },
+  {
+    "badgeId": 2,
+    "badgeName": "Student's Badge",
+    "worth": 10,
+    "unlockedBy": "Create your first journal entry.",
+    "unlocked": false,
+    "image": "/assets/logos/jjlogo.png"
+  },
+  {
+    "badgeId": 3,
+    "badgeName": "Novice Badge",
+    "worth": 10,
+    "unlockedBy": "Register your first technique.",
+    "unlocked": false,
+    "image": "/assets/logos/jjlogo.png"
+  },
+  {
+    "badgeId": 4,
+    "badgeName": "Grappler's Badge",
+    "worth": 50,
+    "unlockedBy": "Create 60 journal entries.",
+    "unlocked": false,
+    "image": "/assets/logos/jjlogo.png"
+  },
+  {
+    "badgeId": 5,
+    "badgeName": "Warrior's Badge",
+    "worth": 100,
+    "unlockedBy": "Create 120 journal entries.",
+    "unlocked": false,
+    "image": "/assets/logos/jjlogo.png"
+  },
+  {
+    "badgeId": 6,
+    "badgeName": "Writer's Badge",
+    "worth": 50,
+    "unlockedBy": "Submitt your first article.",
+    "unlocked": false,
+    "image": "/assets/logos/jjlogo.png"
+  },
+  {
+    "badgeId": 7,
+    "badgeName": "Editor's Badge",
+    "worth": 100,
+    "unlockedBy": "Submit 50 articles.",
+    "unlocked": false,
+    "image": "/assets/logos/jjlogo.png"
+  }
+]

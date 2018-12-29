@@ -1,11 +1,8 @@
 //Each user who signs up will be given a journal
-
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 //create schema
-
 const EntrySchema = new Schema({
   rolls: {
     type: Number,
@@ -34,6 +31,10 @@ const EntrySchema = new Schema({
     type: String,
     default: "Today I ..."
 
+  },
+  belongsToJournal: {
+    type: Schema.Types.ObjectId,
+    ref: 'Journal'
   },
   author: {
     type: Schema.Types.ObjectId,

@@ -9,6 +9,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const morgan = require('morgan');
 const path = require('path');
+var favicon = require('serve-favicon')
 
 
 const setUserOnLocalsMiddleware = require('../server/middleware/user-local');

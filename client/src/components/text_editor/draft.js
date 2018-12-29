@@ -1,6 +1,41 @@
 import React, { Component } from 'react';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import Editor, { composeDecorators } from 'draft-js-plugins-editor';
+import createImagePlugin from 'draft-js-image-plugin';
+import createAlignmentPlugin from 'draft-js-alignment-plugin';
+import createFocusPlugin from 'draft-js-focus-plugin';
+import createResizeablePlugin from 'draft-js-resizeable-plugin';
+import createBlockDndPlugin from 'draft-js-drag-n-drop-plugin';
+import createLinkifyPlugin from 'draft-js-linkify-plugin'
+import ImageAdd from './ImageAdd';
+
+import { EditorState, RichUtils } from 'draft-js';
 import styles from './text.scss';
+
+
+const focusPlugin = createFocusPlugin();
+const resizeablePlugin = createResizeablePlugin();
+const blockDndPlugin = createBlockDndPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+const linkifyPlugin = createLinkifyPlugin();
+const { AlignmentTool } = alignmentPlugin;
+
+const decorator = composeDecorators(
+  resizeablePlugin.decorator,
+  alignmentPlugin.decorator,
+  focusPlugin.decorator,
+  blockDndPlugin.decorator
+);
+
+const imagePlugin = createImagePlugin({ decorator });
+
+const plugins = [
+  blockDndPlugin,
+  focusPlugin,
+  alignmentPlugin,
+  resizeablePlugin,
+  imagePlugin,
+  linkifyPlugin
+];
 
 class DraftTextInput extends React.Component {
   constructor(props) {
@@ -66,35 +101,48 @@ export default class DraftTextEditor extends Component {
   componentDidMount() {
     this.focusEditor();
   }
+
   render() {
-    const {editorState} = this.state;
-    let className = 'editor'
+    const { editorState } = this.state;
     var contentState = editorState.getCurrentContent();
-    if(!contentState.hasText()) {
-      if(contentState.getBlockMap().first.getType !== styles.unstyled){
+    if (!contentState.hasText()) {
+      if (contentState.getBlockMap().first.getType !== styles.unstyled) {
         className = styles.hidePlaceholder
       }
     }
     return (
-      <div className={styles.editorRoot}>
-        <div onClick={this.focusEditor}>
-          <BlockStyleControls
-            editorState={this.state.editorState}
-            onToggle={this.toggleBlockType} />
-          <InlineStyleControls
-            editorState={this.state.editorState}
-            onToggle={this.toggleInlineStyle} />
-          <div className={styles.editorInner}>
-          <Editor
-            ref={this.setEditor}
-            customStyleMap={styleMap}
-            editorState={this.state.editorState}
-            onChange={this.onChange}
-            handleKeyCommand={this.handleKeyCommand}
-            onTab={this.onTab}
-            spellCheck={true}
-          />
+      <div className={styles.editorLarge}>
+        <div className={styles.editorInner} onClick={this.focusEditor}>
+
+          <div className={styles.controllerRow}>
+            <ImageAdd
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              modifier={imagePlugin.addImage}
+
+            />
+            <BlockStyleControls
+              editorState={this.state.editorState}
+              onToggle={this.toggleBlockType} />
+            <InlineStyleControls
+              editorState={this.state.editorState}
+              onToggle={this.toggleInlineStyle} />
+
           </div>
+
+          <div className={styles.editorInner}>
+            <Editor
+              ref={(element) => { this.editor = element; }}
+              customStyleMap={styleMap}
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              handleKeyCommand={this._handleKeyCommand}
+              onTab={this.onTab}
+              spellCheck={true}
+              plugins={[plugins]}
+            />
+          </div>
+
         </div>
       </div>
 
@@ -104,8 +152,7 @@ export default class DraftTextEditor extends Component {
 
 const styleMap = {
   CODE: {
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    backgroundColor: 'rgba(255,255,0,0.5)',
     fontSize: 14,
     padding: 2
   }
@@ -113,7 +160,7 @@ const styleMap = {
 
 function getBlockStyle(block) {
   switch (block.getType()) {
-    case 'Blockquote' : return styles.blockquote;
+    case 'Blockquote': return styles.blockquote;
     default: return null;
   }
 }
@@ -121,14 +168,14 @@ function getBlockStyle(block) {
 class StyledButton extends Component {
   constructor() {
     super();
-    this.onToggle = (e) =>{
+    this.onToggle = (e) => {
       e.preventDefault();
       this.props.onToggle(this.props.style);
     }
   }
   render() {
     return (
-  <span className={this.props.active ? styles.active : styles.styledButton} onMouseDown={this.onToggle}>
+      <span className={this.props.active ? styles.active : styles.styledButton} onMouseDown={this.onToggle}>
         {this.props.label}
       </span>
     )
@@ -164,6 +211,7 @@ const BlockStyleControls = (props) => {
           onToggle={props.onToggle}
           style={type.style}
         />)}
+
     </div>
   )
 }
@@ -172,7 +220,7 @@ const INLINE_STYLES = [
   { label: 'B', style: 'BOLD' },
   { label: 'I', style: 'ITALIC' },
   { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' }
+  { label: 'Highlight', style: 'CODE' }
 ]
 
 const InlineStyleControls = (props) => {

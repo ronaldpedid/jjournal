@@ -3,8 +3,7 @@
 .headerContainer{
   @extend .flex;
   @extend .colLrg;
-  height: 25rem;
-  border: 1px solid black;
+  height: 100vh;
 }
 
 .headerBodyContainer{
@@ -18,4 +17,101 @@
 .headerLogoContainer{
 @extend .headerBodyContainer;
 
+}
+
+.headerCopyBlock{
+  font-family: 'Forum', cursive;
+  font-size: 1.6rem;
+  @media(min-width: 1600px){
+    font-size: 2.5rem;
+  }
+  .journal, .journey{
+    font-size: 1.5rem
+  }
+}
+
+.loginRow{
+  @extend .row;
+
+}
+.login,
+.signup{
+  @extend .headerCopyBlock;
+  font-size: 2.3rem;
+}
+
+.loggedInRow{
+  @extend .flex;
+  @extend .col;
+  width: 100%;
+  @extend .headerCopyBlock;
+  ul{
+    list-style-type: none;
+  }
+ h1, h3{
+    text-align: center;
+  
+  }
+  Link{
+    color: #333;
+  }
+  :link{
+    text-decoration: none;
+  }
+  :visited{
+    color: #333;
+
+  }
+}
+
+.userBlock{
+  padding: 1rem;
+  width: 100%;
+  background-color: #d7f3e9;
+  margin-top: 5rem;
+  height: auto;
+}
+.signup{
+  margin: 0 0 0 2rem;
+}
+
+.headerLogo{
+height: 40rem;
+width: 40rem;
+}
+
+.hideStats{
+  display: none;
+}
+
+.toCapital{
+  text-transform: capitalize;
+}
+
+.statsBlock{
+  @extend .col;
+  margin-top: 1rem;
+}
+
+.statsBlockRow{
+  @extend .flex;
+  width: 100%;
+  @media(max-width: 600px){
+    flex-direction: column;
+  }
+ }
+
+.statsBlockCol{
+  @extend .col;
+  align-items: center;
+}
+
+.numBox{
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+.statLabel{
+  margin-top: -.275rem;
+  border-top: #333 dotted .2rem;
 }

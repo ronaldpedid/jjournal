@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../journal/journal.scss';
 import formStyles from '../../components/forms/forms.scss';
-import { SiteNavigation } from '../../components/navigation/Navigation';
 import { Input, Label, MessageBox } from '../../components/forms/FormComponents';
 import axios from '../../../node_modules/axios';
 import _ from 'lodash';
@@ -69,6 +68,11 @@ export class CreateEntryForm extends Component {
                 onChange={handleChange}
                 value={reflections}>
               </MessageBox>
+
+            </div>
+            <div className={formStyles.hiddenGroup}>
+              <input type="hidden" value='' name="belongsToJournal"></input>
+              <input type="hidden" value='' name="author"></input>
             </div>
             <button>Submit</button>
           </form>

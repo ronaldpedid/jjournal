@@ -17,12 +17,21 @@ const TechniqueSchema = new Schema({
     type: String
   },
   videoUrl: {
-    type: String
+    type: String,
+    default: 'https://www.youtube.com/watch?v=pw_9ZZLkkNI'
   },
-  date: {
+  belongsToBook: {
+    type: Schema.Types.ObjectId,
+    ref: 'Book'
+  },
+  registeredBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  lastUpdated: {
     type: Date,
     default: Date.now()
   }
 });
 
-module.exports = Technique = mongoose.model('Technique', TechniqueSchema);
+module.exports = exports.default = Technique = mongoose.model('Technique', TechniqueSchema);

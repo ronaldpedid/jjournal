@@ -1,16 +1,17 @@
-const User = require('../database/datamodels/User'),
-  Journal = require('../database/datamodels/journal/Journal'),
-  Entry = require('../database/datamodels/journal/Entry');
+const UserDM = require('../database/datamodels/User'),
+  JournalDM = require('../database/datamodels/journal/Journal'),
+  EntryDM = require('../database/datamodels/journal/Entry');
 
 //create a class that uses methods to run async functions
 //creates a user journal and assigns it to the owner's userId
 class UserJournal {
   async create(userId) {
-    await Journal.create({ owner: userId });
+    await JournalDM.create({ owner: userId });
   }
 
-  async newEntry(userId) {
-    await Entry.create({ author: userId });
+  async createEntry(userId) {
+    await EntryDM.create({ owner: userId });
+
   }
 }
 

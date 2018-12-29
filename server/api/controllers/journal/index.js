@@ -1,5 +1,6 @@
 const util = require('../../lib/utils.js'),
-  Entry = require('../../lib/models/entry');
+  User = require('../../lib/models/user')
+Entry = require('../../lib/models/entry');
 
 
 module.exports = {
@@ -28,7 +29,8 @@ async function createEntry(req, res) {
     const entryModel = new Entry();
 
     const newEntry = await entryModel.create(req.body);
-    return res.json(newEntry);
+    const updatedUser = await User.incEntryAmount(req.user._id, 1);
+    return res.json({ newEntry, updatedUser });
   } catch (err) {
     res.status(500);
     console.log(err);

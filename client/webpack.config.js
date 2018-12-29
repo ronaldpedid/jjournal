@@ -43,6 +43,12 @@ module.exports = {
       {
         test: /\.svg$/,
         use: "url-loader",
+      },
+      {
+        test: /plugin\.scss$/,
+        loaders: [
+          'style-loader', 'scss'
+        ]
       }
     ]
   },

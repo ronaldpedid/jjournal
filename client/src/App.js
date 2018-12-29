@@ -11,7 +11,9 @@ import { TechniqueForm } from './views/book/Create';
 import { UserProfile } from './views/user/Profile';
 import { EditUser } from './views/user/Edit';
 import { UserProfileViewModel } from './views/user/profile.viewModel';
+import { EditorView } from './views/editor/Editor';
 import { SiteNavigation } from './components/navigation/Navigation';
+
 
 @observer
 class App extends Component {
@@ -36,6 +38,7 @@ class App extends Component {
               <Route path="/account/technique_book/technique/new" component={TechniqueForm} />
               <Route path="/account/dashboard" component={DashboardView} />
               <Route path="/account/journal/entry/new" component={EntryForm} />
+              <Route path="/account/articles/new" component={EditorView} />
               <Route path="/account/edit" component={EditUser} />
             </Switch>
           </div>

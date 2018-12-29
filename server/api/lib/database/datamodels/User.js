@@ -6,7 +6,8 @@ const UserSchema = new Schema({
   username: {
     type: String,
     default: '',
-    require: true
+    require: true,
+    unique: true
   },
   firstName: {
     type: String,
@@ -36,25 +37,80 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Journal'
   },
+  numOfEntries: {
+    type: Number,
+    default: 0
+  },
   book: {
     type: Schema.Types.ObjectId,
     ref: 'Book'
   },
-  hasJournal: {
-    type: Boolean,
-    default: true
+  numOfTechniques: {
+    type: Number,
+    default: 0
   },
-  hasBook: {
-    type: Boolean,
-    default: true
+  totalSparringMatches: {
+    type: Number,
+    default: 0
   },
-  hasBlog: {
+  totalSparringTime: {
+    type: Number,
+    default: 0
+  },
+  currentWeight: {
+    type: Number,
+    default: 0
+  },
+  hasWritePermissions: {
     type: Boolean,
     default: false
   },
+  accountPoints: {
+    type: Number,
+    default: 5
+  },
+  beltRank: {
+    type: String,
+    default: 'white'
+  },
+  beltStripesNum: {
+    type: Number,
+    min: 0,
+    max: 4
+  },
+  age: {
+    type: Number
+  },
+  gender: {
+    type: String,
+    default: 'None Specified'
+  },
+  country: {
+    type: String
+  },
+  currentSchool: {
+    type: String
+  },
+  private: {
+    type: Boolean,
+    default: 'false'
+  },
+  isAdmin: {
+    type: Boolean,
+    default: 'false'
+  },
+  isModerator: {
+    type: Boolean,
+    default: 'false'
+  },
   badges: {
     type: Array,
-    default: []
+    default: [{
+      badgeName: 'Welcome Badge',
+      worth: 10,
+      unlockedBy: 'Signing up a new account.',
+      image: '/assets/logos/jjlogo.png'
+    }]
   }
 })
 

@@ -6,6 +6,7 @@
   flex-basis: 100%;
   flex: 1;
   max-width: 786px;
+  max-height: 900px;
   font-size: 16px;
   border: 1px solid black;
   height: auto;
@@ -14,18 +15,42 @@
   border-radius: .4rem;
 }
 
+.editorSmall{
+@extend .editorRoot;
+height: 300px;
+}
+
+.editorMedium{
+@extend .editorRoot;
+height: 600px;
+}
+
+.editorLarge{
+  @extend .editorRoot;
+  height: 900px
+}
+
 .editorInner{
   margin-left: 1.4rem;
+  max-height: 800px;
 }
+
+.controllerRow{
+  @extend .row;
+  margin: 0 auto;
+}
+
 .editorControls{
-  font-family: 'Helvetica', sans-serif;
-  font-size: 18px;
+  @extend .controllerRow;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
   user-select: none;
   background-color: #666;
-  :first-child{
-    margin-left: .5rem;
-
-  }
+  height: 2.4rem;
+  width: auto;
+  align-items: center;
+  text-align: center;
+  padding: .8rem;
 }
 
 .styledButton{
@@ -45,7 +70,7 @@
 
 .blockquote{
   border-left: 5px solid #eee;
-  color: #666;
+  background-color: #666;
   font-family: 'Hoefler Text', 'Georgia', serif;
   font-style: italic;
   margin: 16px 0;
@@ -69,3 +94,8 @@
 .headerOne{
   color: red;
 }
+.addImage{
+  background-color: #666;
+}
+
+

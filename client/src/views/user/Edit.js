@@ -17,6 +17,12 @@ class EditUserForm extends Component {
       username,
       firstName,
       lastName,
+      beltRank,
+      beltStripesNum,
+      age,
+      gender,
+      country,
+      currentSchool,
       profilePic,
       handleChange,
       handleSubmit
@@ -67,6 +73,71 @@ class EditUserForm extends Component {
                 value={lastName} />
             </div>
 
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Age</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="age"
+                placeholder={this.viewModel.age}
+                onChange={handleChange}
+                value={age} />
+            </div>
+
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Gender</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="gender"
+                placeholder={this.viewModel.gender}
+                onChange={handleChange}
+                value={gender} />
+            </div>
+
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Belt Rank</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="beltRank"
+                placeholder={this.viewModel.beltRank}
+                onChange={handleChange}
+                value={beltRank} />
+            </div>
+
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Belt Stripes</Label>
+              <Input
+                className={formStyles.inputText}
+                type="number"
+                name="beltStripesNum"
+                placeholder={this.viewModel.beltStripesNum}
+                onChange={handleChange}
+                value={beltStripesNum} />
+            </div>
+
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Country</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="country"
+                placeholder={this.viewModel.country}
+                onChange={handleChange}
+                value={country} />
+            </div>
+
+            <div className={formStyles.formInputGroup}>
+              <Label className={formStyles.label}>Current School</Label>
+              <Input
+                className={formStyles.inputText}
+                type="text"
+                name="currentSchool"
+                placeholder={this.viewModel.currentSchool}
+                onChange={handleChange}
+                value={currentSchool} />
+            </div>
             <button type="submit">Submit</button>
           </form>
         </div>
@@ -88,7 +159,13 @@ export class EditUser extends Component {
       username: '',
       email: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      beltRank: '',
+      beltStripesNum: '',
+      age: '',
+      gender: '',
+      country: '',
+      currentSchool: ''
 
     }
     this.handleChange = this.handleChange.bind(this);
@@ -106,12 +183,28 @@ export class EditUser extends Component {
   async submitForm() {
     const userId = this.viewModel.userId;
     console.log('userid: ' + userId);
-    const { username, email, firstName, lastName } = this.state;
+    const {
+      username,
+      email,
+      firstName,
+      lastName,
+      beltRank,
+      beltStripesNum,
+      age,
+      gender,
+      country,
+      currentSchool } = this.state;
     const form = await axios.put('/api/account/' + userId, {
       username,
       email,
       firstName,
-      lastName
+      lastName,
+      beltRank,
+      beltStripesNum,
+      age,
+      gender,
+      country,
+      currentSchool
     }).catch((error) => {
       const response = error.response
       console.log(response.data.errors)
@@ -133,7 +226,13 @@ export class EditUser extends Component {
       email,
       username,
       firstName,
-      lastName
+      lastName,
+      beltRank,
+      beltStripesNum,
+      age,
+      gender,
+      country,
+      currentSchool
     } = this.props
     return (
       <div className={styles.signupPageWrapper}>
@@ -143,6 +242,12 @@ export class EditUser extends Component {
           email={email}
           firstName={firstName}
           lastName={lastName}
+          beltRank={beltRank}
+          beltStripesNum={beltStripesNum}
+          age={age}
+          gender={gender}
+          country={country}
+          currentSchool={currentSchool}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           viewModel={this.viewModel}

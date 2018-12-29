@@ -3,6 +3,7 @@
  */
 const util = require('../lib/utils.js');
 const journal = require('../controllers/journal/');
+const loginRequired = require('../../middleware/requireLogin');
 
 
 /**
@@ -12,7 +13,7 @@ module.exports = function (app) {
   app.options('/api/journal/*', util.asJSON, util.options);
 
   //create a new journal entry
-  app.post('/api/journal/entry/new', util.asJSON, journal.createEntry);
+  app.post('/api/journal/entry/new', util.asJSON, loginRequired, journal.createEntry);
 
   //retieve a journal
   app.get('/api/journal/:id', util.asJSON, journal.retrieveJournal);
@@ -24,5 +25,5 @@ module.exports = function (app) {
   app.get('/api/journal/entry/:id', util.asJSON, journal.retrieveEntry);
 
   //delete a single journal entry
-  app.delete('/api/journal/:id', util.asJSON, journal.deleteEntry);
+  app.delete('/api/journal/entry/:id/delete', util.asJSON, journal.deleteEntry);
 };

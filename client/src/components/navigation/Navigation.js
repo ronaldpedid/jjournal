@@ -39,27 +39,54 @@ class NavigationListItem extends Component {
 export class SiteNavigation extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      navIsOpen: false
+    }
     this.viewModel = new NavigationViewModel(props.userProfile);
+    this.toggleNavigation = this.toggleNavigation.bind(this);
+
+  }
+
+  toggleNavigation() {
+    console.log(this.state.navIsOpen);
+    if (this.state.navIsOpen !== true) {
+      this.setState({ navIsOpen: true })
+    } else {
+      this.setState({ navIsOpen: false })
+    }
   }
   render() {
     return (
+
       <NavigationContainer className={styles.navigationContainer}>
         <NavigationList className={styles.navigationRow}>
-          <NavigationListItem className={styles.navigationItem}>
-            {this.viewModel.welcomeText}<Link to={this.viewModel.userNameHref}> {this.viewModel.userNameText}</Link>
-          </NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}>
-            <Link to={this.viewModel.homeHref}>{this.viewModel.HomeText}</Link>
-          </NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}>
-            <Link to={this.viewModel.dashboardHref}>{this.viewModel.dashboardText}</Link>
-          </NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}>
-            <Link to={this.viewModel.loginHref}>{this.viewModel.loginText}</Link>
-          </NavigationListItem>
-          <NavigationListItem className={styles.navigationItem}>
-            <Link to={this.viewModel.signUpHref}>{this.viewModel.signUp}</Link>
-          </NavigationListItem>
+          <img id={styles.triggerNavigation} onClick={this.toggleNavigation} className={styles.navLogo} src="/assets/logos/jitsujournal_logomark.png" />
+          <section className={this.state.navIsOpen ? styles.navigationCol : styles.hiddenNavigation}>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.loginHref}>{this.viewModel.loginText}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.signUpHref}>{this.viewModel.signUp}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.homeHref}>{this.viewModel.HomeText}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.NewEntryHref}>{this.viewModel.NewEntryText}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.NewTechniqueHref}>{this.viewModel.NewTechniqueText}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.NewArticleHref}>{this.viewModel.NewArticleText}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.JournalHref}>{this.viewModel.JournalText}</Link>
+            </NavigationListItem>
+            <NavigationListItem className={styles.navigationItem}>
+              <Link to={this.viewModel.TechniqueHref}>{this.viewModel.TechniqueText}</Link>
+            </NavigationListItem>
+          </section>
         </NavigationList>
       </NavigationContainer>
     )
@@ -67,27 +94,20 @@ export class SiteNavigation extends Component {
 }
 
 
-export class SubNavigation extends Component {
-  render() {
-    return (
-      <NavigationContainer className={styles.navigationContainerSubnav}>
-        <NavigationList className={styles.navigationRowSubnav}>
-          <NavigationListItem className={styles.navigationItemSubnav}><Link to='/account/journal/entry/new'>Create Journal Entry</Link></NavigationListItem>
-          <NavigationListItem className={styles.navigationItemSubnav}><Link to='/account/technique_book/technique/new'>Add Technique</Link></NavigationListItem>
-          <NavigationListItem className={styles.navigationItemSubnav}><Link to='/account/signup'>View All</Link></NavigationListItem>
-        </NavigationList>
-      </NavigationContainer>
-    )
-
-  }
-}
-
+/* desktop navigation
+*Stylish pop up from the left side of the window
+*TODO:::::
+* Create a side navigation container component
+* Attach Mobx decorators / inject data
+* Bring in User data
+* Apply CSS / Javascript to make menu interactive
+* Pops in front the left, exits stage left.
+* $$$$
+* Profit
+*/
 
 
 SiteNavigation.propTypes = {
   className: PropTypes.string
 }
 
-SubNavigation.propTypes = {
-  className: PropTypes.string
-}

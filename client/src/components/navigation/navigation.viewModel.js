@@ -11,7 +11,9 @@ export class NavigationViewModel {
     return this.userProfile.currentUser;
   }
 
-
+  @computed get hasWritePermissions() {
+    return this.userProfile.hasWritePermissions;
+  }
 
   @computed get username() {
     return this.currentUser
@@ -58,14 +60,64 @@ export class NavigationViewModel {
       ? 'Welcome, '
       : '';
   }
-
-  @computed get HomeText() {
+  @computed get JournalText() {
     return this.isLoggedIn
-      ? 'Home'
+      ? 'View Journal '
+      : '';
+  }
+  @computed get JournalHref() {
+    return this.isLoggedIn
+      ? '/account/journal/ '
+      : '';
+  }
+  @computed get TechniqueText() {
+    return this.isLoggedIn
+      ? 'View Techniques'
+      : '';
+  }
+  @computed get TechniqueHref() {
+    return this.isLoggedIn
+      ? '/account/technique_book/'
       : '';
   }
 
+  @computed get HomeText() {
+    return this.isLoggedIn
+      ? 'Dashboard'
+      : '';
+  }
 
+  @computed get NewEntryText() {
+    return this.isLoggedIn
+      ? 'Record Training'
+      : ''
+  }
+  @computed get NewEntryHref() {
+    return this.isLoggedIn
+      ? '/account/journal/entry/new'
+      : ''
+  }
+
+  @computed get NewTechniqueText() {
+    return this.isLoggedIn
+      ? 'Register Technique'
+      : ''
+  }
+  @computed get NewTechniqueHref() {
+    return this.isLoggedIn
+      ? '/account/technique_book/technique/new'
+      : ''
+  }
+  @computed get NewArticleText() {
+    return this.isLoggedIn && this.hasWritePermissions
+      ? 'Write Article'
+      : 'Become A Writer'
+  }
+  @computed get NewArticleHref() {
+    return this.isLoggedIn && this.hasWritePermissions
+      ? '/account/articles/new'
+      : '/'
+  }
   @computed get homeHref() {
     return this.isLoggedIn
       ? '/'

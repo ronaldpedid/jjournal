@@ -1,7 +1,5 @@
-const util = require('../../lib/utils.js');
-const Book = require('../../lib/database/datamodels/techniques/Book');
-const Technique = require('../../lib/database/datamodels/techniques/Technique');
-const User = require('../../lib/database/datamodels/User');
+const util = require('../../lib/utils.js'),
+  Technique = require('../../lib/models/technique')
 //validate = require('../../lib/validators.js'),
 
 module.exports = {
@@ -11,19 +9,7 @@ module.exports = {
   retrieveAllTechniques: retrieveAllTechniques,
   retrieveTechnique: retrieveTechnique,
   updateTechnique: updateTechnique,
-  deleteTechnique: deleteTechnique,
-  createBook: createBook
-}
-
-async function createBook(req, res) {
-  return new Promise((resolve, reject) => {
-    const newBook = new Book({
-      title: req.body.title
-    });
-
-    console.log(newBook)
-    newBook.save().then(book => res.json(book));
-  })
+  deleteTechnique: deleteTechnique
 }
 
 //get a single item from the db
@@ -37,17 +23,16 @@ async function retrieveBook(req, res) {
 
 //create a post request to add a new item to the db
 async function registerTechnique(req, res) {
-  return new Promise((resolve, reject) => {
-    const newTechnique = new Technique({
-      name: req.body.name,
-      positionFrom: req.body.positionFrom,
-      desc: req.body.desc,
-      videoUrl: req.body.videoUrl
-    });
+  try {
+    const techniqueModel = new Technique();
 
-    console.log(newTechnique)
-    newTechnique.save().then(technique => res.json(technique));
-  })
+    const newTechnique = await techniqueModel.create(req.body);
+    return res.json(newTechnique);
+  } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.json({ error: true })
+  }
 }
 
 //get a list of all items from the db

@@ -4,15 +4,29 @@
 .navigationContainer{
   @extend .flex;
   z-index: 2;
-  width: 100%;
+  width: auto;
+  position: absolute;
+  color: #fff;
+  height: 100%;
+
 }
 
 .navigationRow{
   @extend .row;
-  width: 100%;
-  background-color: teal;
+  width: auto;
   list-style-type: none;
   padding: .7rem;
+  position: relative;
+}
+
+.navigationCol{
+  position: fixed;
+  left: 3rem;
+  margin-top: -20px;
+  list-style-type: none;
+  padding: .7rem;
+  background-color: coral;
+  height: 100vh;
 }
 
 .navigationItem{
@@ -39,6 +53,13 @@
 
 .navigationItemSubnav{
   @extend .navigationItem;
-  
   font-size: 2rem;
 } 
+
+.navLogo{
+  height: 2rem;
+  width: 2rem;
+}
+.hiddenNavigation{
+  display: none;
+}
