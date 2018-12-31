@@ -4,9 +4,18 @@ import formStyles from '../../components/forms/forms.scss';
 import { Input, Label, MessageBox } from '../../components/forms/FormComponents';
 import axios from '../../../node_modules/axios';
 import _ from 'lodash';
+import { UserProfileViewModel } from './user.viewModel';
+import { observer, inject } from 'mobx-react';
 
-
+@inject('userProfile')
+@observer
 export class CreateEntryForm extends Component {
+  constructor(props) {
+    super(props);
+    this.viewModel = new UserProfileViewModel(props.userProfile);
+
+  }
+
   render() {
     const {
       rolls,
@@ -14,6 +23,10 @@ export class CreateEntryForm extends Component {
       weightPre,
       weightPost,
       reflections,
+      belongsToJournal,
+      author,
+      authorId,
+      recentWeightLoss,
       rollsErr,
       rollTimeErr,
       weightPreErr,
@@ -71,8 +84,10 @@ export class CreateEntryForm extends Component {
 
             </div>
             <div className={formStyles.hiddenGroup}>
-              <input type="hidden" value='' name="belongsToJournal"></input>
-              <input type="hidden" value='' name="author"></input>
+              <input type="hidden" value='journalId' name="belongsToJournal"></input>
+              <input type="hidden" value={authorId} name="authorId"></input>
+              <input type="hidden" value={recentWeightLoss} name="recentWeightLoss"></input>
+              <input type="hidden" value={author} name="author"></input>
             </div>
             <button>Submit</button>
           </form>
@@ -82,22 +97,30 @@ export class CreateEntryForm extends Component {
   }
 }
 
-
+@inject('userProfile')
+@observer
 export class EntryForm extends Component {
   constructor(props) {
     super(props);
+    this.viewModel = new UserProfileViewModel(props.userProfile);
+    console.log(this.viewModel.userId);
     this.state = {
       rolls: '',
       rollTime: '',
       weightPre: '',
       weightPost: '',
       reflections: '',
+      belongsToJournal: '',
+      author: this.viewModel.username,
+      authorId: this.viewModel.user_id,
+      recentWeightLoss: this.viewModel.recentWeightLoss,
       rollsErr: false,
       rollTimeErr: false,
       weightPreErr: false,
       weightPostErr: false,
       reflectionsErr: false
     }
+
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -129,13 +152,24 @@ export class EntryForm extends Component {
 
   //take the validated form and submit it to the server
   async submitForm() {
-    const { rolls, rollTime, weightPre, weightPost, reflections } = this.state;
+    const {
+      rolls,
+      rollTime,
+      weightPre,
+      weightPost,
+      reflections,
+      belongsToJournal,
+      author,
+      authorId } = this.state;
     const form = await axios.post('/api/journal/entry/new', {
       rolls,
       rollTime,
       weightPre,
       weightPost,
-      reflections
+      reflections,
+      belongsToJournal,
+      author,
+      authorId
     }).catch((error) => {
       const response = error.response
       console.log(response.data.errors)
@@ -160,6 +194,10 @@ export class EntryForm extends Component {
       weightPre,
       weightPost,
       reflections,
+      belongsToJournal,
+      recentWeightLoss,
+      author,
+      authorId,
       rollsErr,
       rollTimeErr,
       weightPreErr,
@@ -181,6 +219,10 @@ export class EntryForm extends Component {
           weightPreErr={weightPreErr}
           weightPostErr={weightPostErr}
           reflectionsErr={reflectionsErr}
+          belongsToJournal={belongsToJournal}
+          recentWeightLoss={recentWeightLoss}
+          author={author}
+          authorId={authorId}
         />
       </div>
 

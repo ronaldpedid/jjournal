@@ -36,9 +36,12 @@ const EntrySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Journal'
   },
-  author: {
+  authorId: {
     type: Schema.Types.ObjectId,
     ref: 'User'
+  },
+  author: {
+    type: String
   },
   date: {
     type: Date,

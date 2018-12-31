@@ -54,6 +54,12 @@ export class UserProfileViewModel {
       : ''
   }
 
+  @computed get recentWeightLoss() {
+    return this.isLoggedIn
+      ? this.currentUser.recentWeightLoss
+      : ''
+  }
+
   @computed get email() {
     return this.isLoggedIn
       ? this.currentUser.email

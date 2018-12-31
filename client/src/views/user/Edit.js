@@ -40,7 +40,7 @@ class EditUserForm extends Component {
                 name="username"
                 onChange={handleChange}
                 placeholder={this.viewModel.username}
-                value={username} />
+                value={this.viewModel.username} />
             </div>
             <div className={formStyles.formInputGroup}>
               <Label className={formStyles.label}>Email Address</Label>

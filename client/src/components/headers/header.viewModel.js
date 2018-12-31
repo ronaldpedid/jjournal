@@ -19,13 +19,19 @@ export class HeaderViewModel {
       : '';
   }
 
-
   @computed get isLoggedIn() {
     return !!this.currentUser;
   }
 
   @computed get accountPoints() {
-    return this.userProfile.accountPoints;
+    return this.currentUser.accountPoints;
+  }
+  @computed get recentWeightLoss() {
+    if (this.currentUser.recentWeightLoss !== 0) {
+      return <h1>You have recently lost {this.currentUser.recentWeightLoss} lbs!</h1>
+    } else {
+      return null;
+    }
   }
   @computed get numOfEntries() {
     return this.userProfile.numOfEntries;

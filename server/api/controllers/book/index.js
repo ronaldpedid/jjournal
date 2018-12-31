@@ -1,4 +1,5 @@
 const util = require('../../lib/utils.js'),
+  User = require('../../lib/models/user'),
   Technique = require('../../lib/models/technique')
 //validate = require('../../lib/validators.js'),
 
@@ -25,9 +26,12 @@ async function retrieveBook(req, res) {
 async function registerTechnique(req, res) {
   try {
     const techniqueModel = new Technique();
+    const userModel = new User();
 
     const newTechnique = await techniqueModel.create(req.body);
-    return res.json(newTechnique);
+    const updatedTechniqueNum = await userModel.incRegisteredTechniqueAmount(req.user._id, 1);
+
+    return res.json({ newTechnique, updatedTechniqueNum });
   } catch (err) {
     res.status(500);
     console.log(err);

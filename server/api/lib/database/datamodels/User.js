@@ -37,6 +37,11 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Journal'
   },
+  entries: {
+    type: Array,
+    default: []
+
+  },
   numOfEntries: {
     type: Number,
     default: 0
@@ -61,6 +66,18 @@ const UserSchema = new Schema({
     type: Number,
     default: 0
   },
+  averageWeight: {
+    type: Number,
+    default: 0
+  },
+  averageWeightArray: {
+    type: Array,
+    default: []
+  },
+  recentWeightLoss: {
+    type: Number,
+    default: 0
+  },
   hasWritePermissions: {
     type: Boolean,
     default: false
@@ -76,7 +93,8 @@ const UserSchema = new Schema({
   beltStripesNum: {
     type: Number,
     min: 0,
-    max: 4
+    max: 4,
+    default: 0
   },
   age: {
     type: Number

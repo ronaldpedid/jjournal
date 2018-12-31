@@ -1,6 +1,6 @@
 const util = require('../../lib/utils.js'),
-  User = require('../../lib/models/user')
-Entry = require('../../lib/models/entry');
+  User = require('../../lib/models/user'),
+  Entry = require('../../lib/models/entry');
 
 
 module.exports = {
@@ -25,12 +25,44 @@ async function retrieveJournal(req, res) {
 
 //create a post request to add a new item to the db
 async function createEntry(req, res) {
+  let user = req.user;
+  let calculatedRollTime = req.body.rolls * req.body.rollTime;
+  let weightLoss = req.body.weightPre - req.body.weightPost;
+  let averageWeightArray = user.averageWeightArray;
+  let averageWeightArrayLength = user.averageWeightArray.length;
+  let old_average = user.averageWeight;
+  let new_weight = req.body.weightPost;
+  let new_average = ((old_average * averageWeightArrayLength) + new_weight) / (averageWeightArray + 1);
+  let roundedAverage = Math.round(new_average);
+  console.log('old average: ' + old_average);
+  console.log('new average: ' + new_average);
   try {
     const entryModel = new Entry();
+    const userModel = new User();
 
     const newEntry = await entryModel.create(req.body);
-    const updatedUser = await User.incEntryAmount(req.user._id, 1);
-    return res.json({ newEntry, updatedUser });
+    const updatedEntryNum = await userModel.incEntryAmount(user._id, 1);
+    const updatedRollNum = await userModel.incSparringMatchesAmount(user._id, req.body.rolls);
+    const updatedRollTime = await userModel.incSparringMatchesTimeAmount(user._id, calculatedRollTime);
+    const updatedAP = await userModel.incAccountPoints(user._id, 2);
+    const setCurrentWeight = await userModel.setNewCurrentWeight(user._id, req.body.weightPost);
+    const setWeightLossAmount = await userModel.setWeightLossAmount(user._id, weightLoss);
+    const updateEntries = await userModel.addEntryToJournal(user._id, newEntry);
+    const addToAverageWeightArray = await userModel.addToAverageWeightArray(user._id, req.body.weightPost);
+    const setAverageWeight = await userModel.setAverageWeight(user._id, roundedAverage);
+
+    return res.json({
+      newEntry,
+      updatedEntryNum,
+      updatedRollNum,
+      updatedRollTime,
+      updatedAP,
+      setCurrentWeight,
+      setWeightLossAmount,
+      updateEntries,
+      addToAverageWeightArray,
+      setAverageWeight
+    });
   } catch (err) {
     res.status(500);
     console.log(err);

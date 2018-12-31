@@ -41,7 +41,44 @@ class User {
 
   async incEntryAmount(userId, amount) {
     await UserDM.findOneAndUpdate({ _id: userId }, { $inc: { numOfEntries: amount } });
-    return user;
+
+  }
+
+  async incSparringMatchesAmount(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $inc: { totalSparringMatches: amount } });
+
+  }
+
+  async incSparringMatchesTimeAmount(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $inc: { totalSparringTime: amount } });
+  }
+
+  async incRegisteredTechniqueAmount(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $inc: { numOfTechniques: amount } });
+  }
+
+  async incAccountPoints(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $inc: { accountPoints: amount } });
+  }
+
+  async setNewCurrentWeight(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $set: { currentWeight: amount } });
+  }
+
+  async setWeightLossAmount(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $set: { recentWeightLoss: amount } });
+  }
+
+  async setAverageWeight(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $set: { averageWeight: amount } });
+  }
+
+  async addToAverageWeightArray(userId, amount) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $push: { averageWeightArray: amount } });
+  }
+
+  async addEntryToJournal(userId, entryId) {
+    await UserDM.findOneAndUpdate({ _id: userId }, { $push: { entries: entryId } });
   }
 
   async getUser(userId) {

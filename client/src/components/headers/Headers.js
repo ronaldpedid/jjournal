@@ -75,6 +75,9 @@ export class LoggedInBlock extends Component {
               <li className={styles.statLabel}>Current Weight</li>
             </ul>
           </div>
+          <div>
+            {this.viewModel.recentWeightLoss}
+          </div>
 
         </div>
       </div >

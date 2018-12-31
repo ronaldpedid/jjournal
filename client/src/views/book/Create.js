@@ -113,7 +113,7 @@ export class TechniqueForm extends Component {
     e.preventDefault();
     if (this.validateForm()) {
       await this.submitForm();
-      // window.location = "/"
+      window.location = "/"
     }
   }
   render() {
