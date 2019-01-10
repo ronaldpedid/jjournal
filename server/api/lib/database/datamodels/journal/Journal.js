@@ -7,10 +7,10 @@ const JournalSchema = new Schema({
     type: String,
     default: 'My Jiu-Jitsu Journey'
   },
-  entries: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Entry'
-  }],
+  entries: {
+    type: Array,
+    default: []
+  },
   noOfEntries: {
     type: Number,
     default: 0

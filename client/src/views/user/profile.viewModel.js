@@ -1,4 +1,5 @@
 import { observable, computed, action, runInAction } from 'mobx';
+import _ from 'lodash';
 import axios from 'axios';
 
 export class UserProfileViewModel {
@@ -7,33 +8,11 @@ export class UserProfileViewModel {
 
   @action async loadUser() {
     this.loading = true;
-    const user = await axios.get('/api/current_user')
+    const result = await axios.get('/api/current_user')
     runInAction(() => {
-      this.currentUser = user;
-      this.currentUser.id = user.data.user._id;
-      this.currentUser.username = user.data.user.username;
-      this.currentUser.email = user.data.user.email;
-      this.currentUser.firstName = user.data.user.firstName;
-      this.currentUser.lastName = user.data.user.lastName;
-      this.currentUser.profilePicture = user.data.user.profilePicture;
-      this.currentUser.accountPoints = user.data.user.accountPoints;
-      this.currentUser.hasWritePermissions = user.data.user.hasWritePermissions;
-      this.currentUser.numOfEntries = user.data.user.numOfEntries;
-      this.currentUser.numOfTechniques = user.data.user.numOfTechniques;
-      this.currentUser.totalSparringMatches = user.data.user.totalSparringMatches;
-      this.currentUser.totalSparringTime = user.data.user.totalSparringTime;
-      this.currentUser.currentWeight = user.data.user.currentWeight;
-      this.currentUser.age = user.data.user.age;
-      this.currentUser.gender = user.data.user.gender;
-      this.currentUser.beltRank = user.data.user.beltRank
-      this.currentUser.beltStripesNum = user.data.user.beltStripesNum;
-      this.currentUser.country = user.data.user.country;
-      this.currentUser.currentSchool = user.data.user.currentSchool;
-      this.currentUser.journal = user.data.user.journal;
-      this.currentUser.isAdmin = user.data.user.isAdmin;
-      this.currentUser.isModerator = user.data.user.isModerator;
-      this.currentUser.private = user.data.user.private;
-      this.currentUser.recentWeightLoss = user.data.user.recentWeightLoss;
+      const user = result.data.user;
+      user.id = user._id;
+      this.currentUser = result.data.user;
       this.loading = false;
     })
   }
@@ -51,6 +30,18 @@ export class UserProfileViewModel {
   @computed get username() {
     return this.isLoggedIn
       ? this.currentUser.username
+      : ''
+  }
+
+  @computed get entries() {
+    return this.isLoggedIn
+      ? this.currentUser.entries
+      : ''
+  }
+
+  @computed get techniques() {
+    return this.isLoggedIn
+      ? this.currentUser.techniques
       : ''
   }
 

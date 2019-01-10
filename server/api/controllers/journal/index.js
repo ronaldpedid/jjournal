@@ -1,5 +1,6 @@
 const util = require('../../lib/utils.js'),
   User = require('../../lib/models/user'),
+  Journal = require('../../lib/models/userJournal'),
   Entry = require('../../lib/models/entry');
 
 
@@ -14,42 +15,42 @@ module.exports = {
 
 
 
-//get a single item from the db
-async function retrieveJournal(req, res) {
-  return new Promise((resolve, reject) => {
-    Journal.findById(req.params.id)
-      .then(journal => (res.json(journal)));
-  })
-    .catch(err => res.status(404).json({ success: false }));
-}
-
 //create a post request to add a new item to the db
 async function createEntry(req, res) {
+  //declarations
   let user = req.user;
-  let calculatedRollTime = req.body.rolls * req.body.rollTime;
-  let weightLoss = req.body.weightPre - req.body.weightPost;
+  let rolls = req.body.rolls;
+  let rollTime = req.body.rollTime;
+  let weightPre = req.body.weightPre;
+  let weightPost = req.body.weightPost;
+  console.log('weight post: ' + weightPost);
+
+  //calculations
+  let calculatedRollTime = rolls * rollTime;
+  let weightLost = weightPre - weightPost;
   let averageWeightArray = user.averageWeightArray;
-  let averageWeightArrayLength = user.averageWeightArray.length;
-  let old_average = user.averageWeight;
-  let new_weight = req.body.weightPost;
-  let new_average = ((old_average * averageWeightArrayLength) + new_weight) / (averageWeightArray + 1);
-  let roundedAverage = Math.round(new_average);
-  console.log('old average: ' + old_average);
-  console.log('new average: ' + new_average);
+  const mode = arr =>
+    arr.length === 0 ? 0 :
+      arr.reduce(
+        (a, b, i, arr) => (arr.filter(c => c === a).length >= arr.filter(c => c === b).length) ? a : b,
+        null
+      )
+
   try {
     const entryModel = new Entry();
     const userModel = new User();
 
     const newEntry = await entryModel.create(req.body);
     const updatedEntryNum = await userModel.incEntryAmount(user._id, 1);
-    const updatedRollNum = await userModel.incSparringMatchesAmount(user._id, req.body.rolls);
+    const updatedRollNum = await userModel.incSparringMatchesAmount(user._id, rolls);
     const updatedRollTime = await userModel.incSparringMatchesTimeAmount(user._id, calculatedRollTime);
     const updatedAP = await userModel.incAccountPoints(user._id, 2);
-    const setCurrentWeight = await userModel.setNewCurrentWeight(user._id, req.body.weightPost);
-    const setWeightLossAmount = await userModel.setWeightLossAmount(user._id, weightLoss);
+    const setCurrentWeight = await userModel.setNewCurrentWeight(user._id, weightPost);
+    const setWeightLossAmount = await userModel.setWeightLossAmount(user._id, weightLost);
+    const addToAverageWeightArray = await userModel.addToAverageWeightArray(user._id, weightPost);
+    const setAverageWeight = await userModel.setAverageWeight(user._id, mode(averageWeightArray));
     const updateEntries = await userModel.addEntryToJournal(user._id, newEntry);
-    const addToAverageWeightArray = await userModel.addToAverageWeightArray(user._id, req.body.weightPost);
-    const setAverageWeight = await userModel.setAverageWeight(user._id, roundedAverage);
+
 
     return res.json({
       newEntry,
@@ -70,6 +71,22 @@ async function createEntry(req, res) {
   }
 }
 
+async function retrieveJournal(req, res) {
+  const user = req.user;
+  try {
+    const journal = user.entries;
+    const journalArr = journal.map(journal => journal);
+    console.log(journalArr);
+    return res.json({
+      journal
+    })
+  }
+  catch (err) {
+    res.status(500);
+    console.log(err);
+    res.json({ error: true })
+  }
+}
 
 async function updateEntry(req, res) {
   return new Promise((resolve, reject) => {

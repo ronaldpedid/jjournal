@@ -7,7 +7,7 @@ const UserDM = require('../database/datamodels/User'),
 //create a class that uses methods to run async functions
 //creates a user journal and assigns it to the owner's userId
 class JournalEntry {
-  async create({ rolls, rollTime, reflections, weightPre, weightPost, author, registedBy }) {
+  async create({ rolls, rollTime, reflections, weightPre, weightPost, author }) {
     const newEntry = new EntryDM({
       rolls: rolls,
       rollTime: rollTime,

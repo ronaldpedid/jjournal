@@ -12,11 +12,10 @@ const loginRequired = require('../../middleware/requireLogin');
 module.exports = function (app) {
   app.options('/api/journal/*', util.asJSON, util.options);
 
+  app.get('/api/journal/', util.asJSON, loginRequired, journal.retrieveJournal);
+
   //create a new journal entry
   app.post('/api/journal/entry/new', util.asJSON, loginRequired, journal.createEntry);
-
-  //retieve a journal
-  app.get('/api/journal/:id', util.asJSON, journal.retrieveJournal);
 
   //update a single technique
   app.put('/api/journal/entry/:id', util.asJSON, journal.updateEntry);

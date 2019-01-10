@@ -13,6 +13,10 @@ class UserJournal {
     await EntryDM.create({ owner: userId });
 
   }
+
+  async addEntryToJournal(journalId, entryId) {
+    await JournalDM.findOneAndUpdate({ _id: journalId }, { $push: { entries: entryId } });
+  }
 }
 
 module.exports = exports.default = UserJournal;

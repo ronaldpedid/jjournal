@@ -12,25 +12,17 @@ const EntrySchema = new Schema({
     type: Number,
     default: 0
   },
-  numOfRolls: {
-    type: Number,
-    default: 0
-
-  },
   weightPre: {
     type: Number,
     default: 135
-
   },
   weightPost: {
     type: Number,
     default: 133
-
   },
   reflections: {
     type: String,
     default: "Today I ..."
-
   },
   belongsToJournal: {
     type: Schema.Types.ObjectId,

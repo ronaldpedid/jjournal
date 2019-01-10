@@ -1,6 +1,6 @@
 const util = require('../../lib/utils.js'),
   User = require('../../lib/models/user'),
-  Technique = require('../../lib/models/technique')
+  Technique = require('../../lib/models/technique');
 //validate = require('../../lib/validators.js'),
 
 module.exports = {
@@ -24,15 +24,43 @@ async function retrieveBook(req, res) {
 
 //create a post request to add a new item to the db
 async function registerTechnique(req, res) {
+  const user = req.user;
   try {
     const techniqueModel = new Technique();
     const userModel = new User();
 
     const newTechnique = await techniqueModel.create(req.body);
-    const updatedTechniqueNum = await userModel.incRegisteredTechniqueAmount(req.user._id, 1);
+    const updatedTechniqueNum = await userModel.incRegisteredTechniqueAmount(user._id, 1);
+    const addTechniqueToBook = await userModel.addTechniqueToBook(user._id, newTechnique);
+    const incAccountPoints = await userModel.incAccountPoints(user._id, 3);
 
-    return res.json({ newTechnique, updatedTechniqueNum });
+    return res.json({
+      newTechnique,
+      updatedTechniqueNum,
+      addTechniqueToBook,
+      incAccountPoints
+    });
   } catch (err) {
+    res.status(500);
+    console.log(err);
+    res.json({ error: true })
+  }
+}
+
+async function retrieveUserTechniques(req, res) {
+  const user = req.user;
+  try {
+    const techniques = user.techniques;
+    console.log(techniques);
+    const techArr = techniques.map(techniques => techniques);
+    console.log(techArr);
+
+
+    return res.json({
+      techniques
+    })
+  }
+  catch (err) {
     res.status(500);
     console.log(err);
     res.json({ error: true })
@@ -50,23 +78,24 @@ async function retrieveAllTechniques(req, res) {
 }
 
 
-async function retrieveUserTechniques(req, res) {
-  return new Promise((resolve, reject) => {
-    User.findById(req.user.id)
-      .sort({ date: -1 })
-      .then(technique => (res.json(technique)))
-      .catch(err => console.log(err));
-  })
-}
+
 
 //delete an item from the db
 async function deleteTechnique(req, res) {
-  return new Promise((resolve, reject) => {
-    Technique.findById(req.params.id)
-      .then(technique => technique.remove()
-        .then(() => res.json({ Success: true })));
-  })
-    .catch(err => res.status(404).json({ success: false }));
+  const user = req.user;
+  const techId = req.user.techniques._id;
+  try {
+    const userModel = new User();
+    const removeTechniqueFromBook = await userModel.removeTechniqueFromBook(user._id, techId);
+
+    return res.json({ removeTechniqueFromBook })
+
+  }
+  catch{
+    res.status(500);
+    console.log(err);
+    res.json({ error: true })
+  }
 }
 
 

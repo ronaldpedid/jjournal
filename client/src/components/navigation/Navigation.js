@@ -57,36 +57,36 @@ export class SiteNavigation extends Component {
   }
   render() {
     return (
-
       <NavigationContainer className={styles.navigationContainer}>
         <NavigationList className={styles.navigationRow}>
           <img id={styles.triggerNavigation} onClick={this.toggleNavigation} className={styles.navLogo} src="/assets/logos/jitsujournal_logomark.png" />
-          <section className={this.state.navIsOpen ? styles.navigationCol : styles.hiddenNavigation}>
+          <nav className={this.state.navIsOpen ? styles.navigationCol : styles.hiddenNavigation}>
+            <img id={styles.triggerNavigation} onClick={this.toggleNavigation} className={styles.navLogo} src="/assets/logos/jitsujournal_logomark.png" />
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.loginHref}>{this.viewModel.loginText}</Link>
+              <Link onClick={this.toggleNavigation} to={this.viewModel.loginHref}>{this.viewModel.loginText}</Link>
             </NavigationListItem>
-            <NavigationListItem className={styles.navigationItem}>
+            <NavigationListItem onClick={this.toggleNavigation} className={styles.navigationItem}>
               <Link to={this.viewModel.signUpHref}>{this.viewModel.signUp}</Link>
             </NavigationListItem>
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.homeHref}>{this.viewModel.HomeText}</Link>
+              <Link onClick={this.toggleNavigation} to={this.viewModel.homeHref}>{this.viewModel.HomeText}</Link>
             </NavigationListItem>
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.NewEntryHref}>{this.viewModel.NewEntryText}</Link>
+              <Link onClick={this.toggleNavigation} onClick={this.toggleNavigation} to={this.viewModel.NewEntryHref}>{this.viewModel.NewEntryText}</Link>
             </NavigationListItem>
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.NewTechniqueHref}>{this.viewModel.NewTechniqueText}</Link>
+              <Link onClick={this.toggleNavigation} to={this.viewModel.NewTechniqueHref}>{this.viewModel.NewTechniqueText}</Link>
             </NavigationListItem>
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.NewArticleHref}>{this.viewModel.NewArticleText}</Link>
+              <Link onClick={this.toggleNavigation} to={this.viewModel.NewArticleHref}>{this.viewModel.NewArticleText}</Link>
             </NavigationListItem>
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.JournalHref}>{this.viewModel.JournalText}</Link>
+              <Link onClick={this.toggleNavigation} to={this.viewModel.JournalHref}>{this.viewModel.JournalText}</Link>
             </NavigationListItem>
             <NavigationListItem className={styles.navigationItem}>
-              <Link to={this.viewModel.TechniqueHref}>{this.viewModel.TechniqueText}</Link>
+              <Link onClick={this.toggleNavigation} to={this.viewModel.TechniqueHref}>{this.viewModel.TechniqueText}</Link>
             </NavigationListItem>
-          </section>
+          </nav>
         </NavigationList>
       </NavigationContainer>
     )

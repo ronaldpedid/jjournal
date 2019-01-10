@@ -76,7 +76,6 @@ function signIn(req, res) {
 
 async function editUser(req, res) {
   const id = req.user._id;
-  console.log(id)
   try {
     const userModel = new User();
     const updatedUser = await userModel.edit(id, req.body);

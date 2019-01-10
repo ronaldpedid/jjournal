@@ -1,3 +1,75 @@
+@import '../../flex.scss';
+
 .descErr{
   color: red;
+}
+
+.techniquesContainer{
+ @extend .flex;
+ flex-flow: column nowrap;
+  margin: 0 auto;
+}
+
+.techniqueBlockContainer{
+  @extend .techniquesContainer;
+  justify-content: flex-start;
+  max-width: 1100px;
+
+}
+
+.techniqueBlock{
+  @extend .colSmall;
+  margin: 0 auto;
+  width: 560px;
+}
+
+.buttonRow{
+  @extend .row;
+  margin: 1rem 0;
+  justify-content: center;
+  text-align: center;
+}
+.editRow{
+@extend .buttonRow;
+ 
+}
+
+.logoHeader{
+  margin: 2rem auto 0 auto;
+  padding-bottom: 1rem;
+}
+
+.videoContainer{
+  @extend .flex;
+  margin: 0 auto;
+  justify-content: space-evenly;
+}
+
+.editRowBtn{
+  @extend .pointer;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.editRowBtnEdt{
+  @extend .editRowBtn;
+  width: 30%;
+  background-color: darkcyan;
+
+}
+.editRowBtnDel{
+  @extend .editRowBtn;
+  background-color: darkred;
+  margin-left: 1rem;
+  height: 100%;
+  width: 30%;
+}
+
+.editRowBtnClose{
+  @extend .editRowBtn;
+  margin-left: .5rem;
+}
+
+.editRowBtnDestroy{
+  @extend .editRowBtn;
 }

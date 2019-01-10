@@ -43,3 +43,22 @@
   justify-content: center;
   align-items: center;
 }
+
+.spaceBetween{
+  justify-content: space-between
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.alertDelete{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  background-color: darkred;
+  padding: 2rem;
+  border:2px solid black;
+  box-shadow: .4rem .4rem 1rem;
+}

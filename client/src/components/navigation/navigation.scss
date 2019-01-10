@@ -21,15 +21,17 @@
 
 .navigationCol{
   position: fixed;
-  left: 3rem;
   margin-top: -20px;
+  margin-left: -20px;
   list-style-type: none;
   padding: .7rem;
   background-color: coral;
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .navigationItem{
+  text-align: center;
   padding: .5rem;
   :link{
     text-decoration: none;

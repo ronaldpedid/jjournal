@@ -40,7 +40,10 @@ const UserSchema = new Schema({
   entries: {
     type: Array,
     default: []
-
+  },
+  techniques: {
+    type: Array,
+    default: []
   },
   numOfEntries: {
     type: Number,
@@ -66,13 +69,13 @@ const UserSchema = new Schema({
     type: Number,
     default: 0
   },
-  averageWeight: {
-    type: Number,
-    default: 0
-  },
   averageWeightArray: {
     type: Array,
     default: []
+  },
+  averageWeight: {
+    type: Number,
+    default: 1
   },
   recentWeightLoss: {
     type: Number,

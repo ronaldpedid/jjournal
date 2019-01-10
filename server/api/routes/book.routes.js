@@ -19,9 +19,10 @@ module.exports = function (app) {
   app.put('/api/technique_book/technique/:id', util.asJSON, book.updateTechnique);
 
   //retrieve data from skillbook
+  app.get('/api/technique_book/', util.asJSON, book.retrieveUserTechniques);
   app.get('/api/technique_book/:id', util.asJSON, book.retrieveBook);
   app.get('/api/technique_book/technique/:id', util.asJSON, book.retrieveTechnique);
 
   //delete a single technique
-  app.delete('/api/technique_book/:id', util.asJSON, loginRequired, book.deleteTechnique);
+  app.delete('/api/technique_book/:id/delete', util.asJSON, loginRequired, book.deleteTechnique);
 };
